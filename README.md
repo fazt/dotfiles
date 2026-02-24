@@ -7,6 +7,7 @@ Personal dotfiles for Windows and Linux/macOS.
 | Program | Description |
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
+| [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
 | [Shell](shell/) | Aliases for bash/zsh and PowerShell |
 
@@ -51,12 +52,21 @@ cd dotfiles/scripts
 bash install.sh
 ```
 
+## Packages
+
+A list of common dev packages for quick setup on Linux/WSL (Debian/Ubuntu).
+
+```bash
+sudo apt install -y $(cat ~/dotfiles/packages.txt)
+```
+
 ## Shell Aliases
 
 Shortcuts loaded in every terminal session.
 
 | Alias | Command |
 |-------|---------|
+| `r` | `ranger` (cd on quit) |
 | `cc` | `claude` |
 | `cm message` | `git commit -m "message"` |
 | `cma message` | `git add -A && git commit -m "message"` |
