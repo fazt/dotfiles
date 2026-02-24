@@ -7,6 +7,7 @@ Personal dotfiles for Windows and Linux.
 | Program | Description |
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
+| [Scripts](scripts/) | Custom Linux utility scripts |
 
 ## Alacritty
 
@@ -27,6 +28,25 @@ cd dotfiles/alacritty
 ```bash
 git clone https://github.com/fazt/dotfiles.git
 cd dotfiles/alacritty
+bash install.sh
+```
+
+## Scripts
+
+Utility scripts for Linux. Added to `$PATH` on install.
+
+| Script | Description |
+|--------|-------------|
+| `update` | Update and upgrade system packages (apt, dnf, pacman) |
+| `cleanup` | Clean cache, logs, and unused packages |
+| `mkproject` | Create a new project with git init |
+| `ports` | Show processes listening on ports |
+| `extract` | Extract any compressed file (.tar.gz, .zip, .7z, .rar, etc.) |
+
+### Install
+
+```bash
+cd dotfiles/scripts
 bash install.sh
 ```
 

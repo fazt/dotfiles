@@ -1,0 +1,15 @@
+#!/bin/bash
+# Create a new project directory with git init
+set -e
+
+if [ -z "$1" ]; then
+  echo "Usage: mkproject <project-name>"
+  exit 1
+fi
+
+mkdir -p "$1" && cd "$1"
+git init
+echo "node_modules/" > .gitignore
+echo "# $1" > README.md
+
+echo "Project '$1' created!"

@@ -1,0 +1,18 @@
+#!/bin/bash
+# Clean up system cache, logs, and unused packages
+set -e
+
+if command -v apt &>/dev/null; then
+  sudo apt autoremove -y
+  sudo apt autoclean
+fi
+
+# Clean journal logs older than 3 days
+if command -v journalctl &>/dev/null; then
+  sudo journalctl --vacuum-time=3d
+fi
+
+# Clean tmp files older than 7 days
+find /tmp -type f -atime +7 -delete 2>/dev/null
+
+echo "Cleanup done!"

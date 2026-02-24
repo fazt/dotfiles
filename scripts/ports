@@ -1,0 +1,7 @@
+#!/bin/bash
+# Show processes listening on a specific port or all ports
+if [ -z "$1" ]; then
+  ss -tulnp
+else
+  ss -tulnp | grep ":$1"
+fi

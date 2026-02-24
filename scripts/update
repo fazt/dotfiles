@@ -1,0 +1,13 @@
+#!/bin/bash
+# Update and upgrade system packages
+set -e
+
+if command -v apt &>/dev/null; then
+  sudo apt update && sudo apt upgrade -y
+elif command -v dnf &>/dev/null; then
+  sudo dnf upgrade -y
+elif command -v pacman &>/dev/null; then
+  sudo pacman -Syu
+fi
+
+echo "System updated!"
