@@ -1,0 +1,45 @@
+import = ["~/.config/alacritty/themes/themes/monokai_charcoal.toml"]
+
+[shell]
+program = "/bin/bash"
+
+[window]
+decorations = "None"
+opacity = 0.95
+blur = true
+padding = { x = 8, y = 8 }
+
+[window.dimensions]
+columns = 100
+lines = 30
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font" }
+bold = { family = "JetBrainsMono Nerd Font" }
+italic = { family = "JetBrainsMono Nerd Font" }
+bold_italic = { family = "JetBrainsMono Nerd Font" }
+size = 14
+
+[cursor.style]
+shape = "Beam"
+blinking = "On"
+
+[scrolling]
+history = 50000
+
+[hints]
+enabled = [{ hyperlinks = true, regex = "(https?://)[^ ]+", command = { program = "xdg-open", args = [] }, post_processing = true, mouse = { mods = "Control", enabled = true }, binding = { key = "U", mods = "Control|Shift" } }]
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "F11", action = "ToggleFullscreen" },
+]
+
+[mouse]
+bindings = [
+  { mouse = "Right", action = "Copy" },
+]

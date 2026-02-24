@@ -1,0 +1,48 @@
+import = ["~\\AppData\\Roaming\\alacritty\\themes\\themes\\monokai_charcoal.toml"]
+
+working_directory = "C:/Users/Fazt/Desktop"
+
+[shell]
+program = "C:/Program Files/PowerShell/7/pwsh.exe"
+args = ["-NoLogo"]
+
+[window]
+decorations = "buttonless"
+opacity = 0.95
+blur = true
+padding = { x = 8, y = 8 }
+
+[window.dimensions]
+columns = 100
+lines = 30
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font" }
+bold = { family = "JetBrainsMono Nerd Font" }
+italic = { family = "JetBrainsMono Nerd Font" }
+bold_italic = { family = "JetBrainsMono Nerd Font" }
+size = 14
+
+[cursor.style]
+shape = "Beam"
+blinking = "On"
+
+[scrolling]
+history = 50000
+
+[hints]
+enabled = [{ hyperlinks = true, regex = "(https?://)[^ ]+", command = { program = "cmd", args = ["/c", "start"] }, post_processing = true, mouse = { mods = "Control", enabled = true }, binding = { key = "U", mods = "Control|Shift" } }]
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "F11", action = "ToggleFullscreen" },
+]
+
+[mouse]
+bindings = [
+  { mouse = "Right", action = "Copy" },
+]
