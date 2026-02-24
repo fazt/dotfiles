@@ -8,6 +8,7 @@ Personal dotfiles for Windows and Linux.
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
 | [Scripts](scripts/) | Custom Linux utility scripts |
+| [Shell](shell/) | Aliases for bash/zsh |
 
 ## Alacritty
 
@@ -47,6 +48,33 @@ Utility scripts for Linux. Added to `$PATH` on install.
 
 ```bash
 cd dotfiles/scripts
+bash install.sh
+```
+
+## Shell Aliases
+
+Shortcuts loaded in every terminal session.
+
+| Alias | Command |
+|-------|---------|
+| `cc` | `claude` |
+| `cm message` | `git commit -m "message"` |
+| `cma message` | `git add -A && git commit -m "message"` |
+| `gs` | `git status` |
+| `ga` | `git add` |
+| `gaa` | `git add -A` |
+| `gp` | `git push` |
+| `gl` | `git pull` |
+| `glog` | `git log --oneline --graph` |
+| `nd` | `npm run dev` |
+| `ni` | `npm install` |
+| `c` | `clear` |
+| `..` | `cd ..` |
+
+### Install
+
+```bash
+cd dotfiles/shell
 bash install.sh
 ```
 
