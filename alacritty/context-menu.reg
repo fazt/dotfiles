@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+; Click derecho en el FONDO de una carpeta -> "Abrir con Alacritty"
+[HKEY_CLASSES_ROOT\Directory\Background\shell\alacritty]
+@="Abrir con Alacritty"
+"Icon"="C:\\Program Files\\Alacritty\\alacritty.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\alacritty\command]
+@="\"C:\\Program Files\\Alacritty\\alacritty.exe\" --working-directory \"%V\""
+
+; Click derecho en una CARPETA -> "Abrir con Alacritty"
+[HKEY_CLASSES_ROOT\Directory\shell\alacritty]
+@="Abrir con Alacritty"
+"Icon"="C:\\Program Files\\Alacritty\\alacritty.exe"
+
+[HKEY_CLASSES_ROOT\Directory\shell\alacritty\command]
+@="\"C:\\Program Files\\Alacritty\\alacritty.exe\" --working-directory \"%V\""
