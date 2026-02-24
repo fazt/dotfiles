@@ -26,6 +26,16 @@ alias ns="npm start"
 alias ni="npm install"
 alias nt="npm test"
 
+# Ranger - cd on quit
+ranger-cd() {
+  local tmpfile="$(mktemp)"
+  ranger --choosedir="$tmpfile" "$@"
+  local dir="$(cat "$tmpfile")"
+  rm -f "$tmpfile"
+  [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+}
+alias r="ranger-cd"
+
 # General
 alias c="clear"
 alias ..="cd .."

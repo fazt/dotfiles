@@ -1,0 +1,12 @@
+git
+curl
+wget
+unzip
+gh
+ripgrep
+fzf
+ranger
+htop
+neovim
+tmux
+jq
