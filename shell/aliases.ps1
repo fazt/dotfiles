@@ -1,7 +1,8 @@
 # PowerShell aliases
 
 # Claude
-Set-Alias -Name "cc" -Value "claude"
+Set-Alias -Name "cc" -Value "claude --dangerously-skip-permissions"
+Set-Alias -Name "cx" -Value "codex --dangerously-bypass-approvals-and-sandbox"
 
 # Git
 function gs { git status }
