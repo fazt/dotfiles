@@ -1,14 +1,14 @@
 # dotfiles
 
-Personal dotfiles for Windows and Linux.
+Personal dotfiles for Windows and Linux/macOS.
 
 ## Contents
 
 | Program | Description |
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
-| [Scripts](scripts/) | Custom Linux utility scripts |
-| [Shell](shell/) | Aliases for bash/zsh |
+| [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
+| [Shell](shell/) | Aliases for bash/zsh and PowerShell |
 
 ## Alacritty
 
@@ -24,7 +24,7 @@ cd dotfiles/alacritty
 .\install.ps1
 ```
 
-**Linux:**
+**Linux/macOS:**
 
 ```bash
 git clone https://github.com/fazt/dotfiles.git
@@ -34,7 +34,7 @@ bash install.sh
 
 ## Scripts
 
-Utility scripts for Linux. Added to `$PATH` on install.
+Utility scripts for Linux/macOS. Added to `$PATH` on install.
 
 | Script | Description |
 |--------|-------------|
@@ -72,6 +72,15 @@ Shortcuts loaded in every terminal session.
 | `..` | `cd ..` |
 
 ### Install
+
+**Windows (PowerShell):**
+
+```powershell
+cd dotfiles/shell
+.\install.ps1
+```
+
+**Linux/macOS:**
 
 ```bash
 cd dotfiles/shell
