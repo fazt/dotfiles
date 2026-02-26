@@ -6,7 +6,7 @@ config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 14
 
-config.color_scheme = "Tomorrow Night Bright"
+config.color_scheme = "Vibrant Ink (Gogh)"
 config.window_background_opacity = 0.95
 
 config.window_padding = {
@@ -22,7 +22,15 @@ config.scrollback_lines = 50000
 config.window_decorations = "TITLE | RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 
-config.initial_cols = 140
+config.initial_cols = 110
 config.initial_rows = 30
+
+config.mouse_bindings = {
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+}
 
 return config

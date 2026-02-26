@@ -1,7 +1,5 @@
 import = ["~\\AppData\\Roaming\\alacritty\\themes\\themes\\monokai_charcoal.toml"]
 
-working_directory = "C:/Users/Fazt/Desktop"
-
 [shell]
 program = "C:/Program Files/PowerShell/7/pwsh.exe"
 args = ["-NoLogo"]
@@ -38,7 +36,7 @@ save_to_clipboard = true
 
 [keyboard]
 bindings = [
-  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
   { key = "F11", action = "ToggleFullscreen" },
 ]
 
