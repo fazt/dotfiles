@@ -7,6 +7,7 @@ Personal dotfiles for Windows and Linux/macOS.
 | Program | Description |
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
+| [WezTerm](wezterm/) | Terminal emulator config |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
 | [Shell](shell/) | Aliases for bash/zsh and PowerShell |
@@ -31,6 +32,19 @@ cd dotfiles/alacritty
 git clone https://github.com/fazt/dotfiles.git
 cd dotfiles/alacritty
 bash install.sh
+```
+
+## WezTerm
+
+Configs include: Tomorrow Night Bright theme, JetBrainsMono Nerd Font, PowerShell 7, beam cursor, 50k scroll history, 140x30 window.
+
+### Install
+
+**Windows (PowerShell):**
+
+```powershell
+cd dotfiles/wezterm
+.\install.ps1
 ```
 
 ## Scripts
@@ -99,6 +113,6 @@ bash install.sh
 
 ### Prerequisites
 
-- [Alacritty](https://alacritty.org/)
+- [Alacritty](https://alacritty.org/) or [WezTerm](https://wezfurlong.org/wezterm/)
 - [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) — install with `oh-my-posh font install JetBrainsMono`
 - [Oh My Posh](https://ohmyposh.dev/) (optional, for prompt theme)
