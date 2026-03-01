@@ -9,7 +9,8 @@ Leader key: `Space`
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager |
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder / buscador |
 | [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | Sorting nativo para Telescope |
-| [oxocarbon.nvim](https://github.com/nyoom-engineering/oxocarbon.nvim) | Colorscheme (dark) |
+| [material.nvim](https://github.com/marko-cerovac/material.nvim) | Colorscheme (deep ocean) |
+| [mini.map](https://github.com/echasnovski/mini.map) | Minimap lateral |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | Explorador de archivos |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Iconos para Neo-tree |
 | [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim) | Pantalla de inicio |
@@ -49,6 +50,14 @@ Dentro de Telescope:
 | `g` | Buscar texto |
 | `p` | Plugins (Lazy) |
 | `q` | Salir |
+
+### Minimap
+
+| Atajo | Accion |
+|---|---|
+| `Space mo` | Toggle minimap |
+| `Space mf` | Focus minimap |
+| `Space mr` | Refresh minimap |
 
 ### Neo-tree
 

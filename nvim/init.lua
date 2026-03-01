@@ -14,5 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Números de línea
+vim.opt.number = true
+vim.opt.relativenumber = true
+
 -- Cargar plugins
 require("lazy").setup("plugins")
