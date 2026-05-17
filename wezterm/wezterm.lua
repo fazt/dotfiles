@@ -8,7 +8,7 @@ if is_windows then
 end
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
-config.font_size = 14
+config.font_size = 12
 
 config.color_scheme = "Vibrant Ink (Gogh)"
 config.window_background_opacity = 0.95
