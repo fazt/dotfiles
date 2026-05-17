@@ -18,6 +18,7 @@ config.window_padding = {
 
 config.default_cursor_style = "BlinkingBar"
 config.scrollback_lines = 50000
+config.enable_scroll_bar = true
 
 config.window_decorations = "TITLE | RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
@@ -31,6 +32,21 @@ config.mouse_bindings = {
     mods = "CTRL",
     action = wezterm.action.OpenLinkAtMouseCursor,
   },
+}
+
+config.keys = {
+  { key = "UpArrow",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
+  { key = "DownArrow", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
+
+  { key = "1", mods = "ALT", action = wezterm.action.ActivateTab(0) },
+  { key = "2", mods = "ALT", action = wezterm.action.ActivateTab(1) },
+  { key = "3", mods = "ALT", action = wezterm.action.ActivateTab(2) },
+  { key = "4", mods = "ALT", action = wezterm.action.ActivateTab(3) },
+  { key = "5", mods = "ALT", action = wezterm.action.ActivateTab(4) },
+  { key = "6", mods = "ALT", action = wezterm.action.ActivateTab(5) },
+  { key = "7", mods = "ALT", action = wezterm.action.ActivateTab(6) },
+  { key = "8", mods = "ALT", action = wezterm.action.ActivateTab(7) },
+  { key = "9", mods = "ALT", action = wezterm.action.ActivateTab(-1) },
 }
 
 return config
