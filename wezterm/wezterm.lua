@@ -39,6 +39,8 @@ config.mouse_bindings = {
 }
 
 config.keys = {
+  { key = "F11", action = wezterm.action.ToggleFullScreen },
+
   { key = "UpArrow",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
   { key = "DownArrow", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
 
