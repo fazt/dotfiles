@@ -38,8 +38,24 @@ config.mouse_bindings = {
   },
 }
 
+wezterm.on("update-right-status", function(window)
+  window:set_right_status("  [" .. window:active_workspace() .. "] ")
+end)
+
 config.keys = {
   { key = "F11", action = wezterm.action.ToggleFullScreen },
+
+  { key = "s", mods = "CTRL|SHIFT", action = wezterm.action.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" } },
+  { key = "n", mods = "CTRL|SHIFT", action = wezterm.action.PromptInputLine {
+      description = "Enter workspace name",
+      action = wezterm.action_callback(function(window, pane, line)
+        if line and line ~= "" then
+          window:perform_action(wezterm.action.SwitchToWorkspace { name = line }, pane)
+        end
+      end),
+    },
+  },
+
   {
     key = "F2",
     action = wezterm.action.PromptInputLine {
