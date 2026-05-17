@@ -52,8 +52,10 @@ config.keys = {
     },
   },
 
-  { key = "UpArrow",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
-  { key = "DownArrow", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
+  { key = "UpArrow",    mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
+  { key = "DownArrow",  mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
+  { key = "LeftArrow",  mods = "CTRL|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
+  { key = "RightArrow", mods = "CTRL|SHIFT", action = wezterm.action.MoveTabRelative(1) },
 
   { key = "1", mods = "ALT", action = wezterm.action.ActivateTab(0) },
   { key = "2", mods = "ALT", action = wezterm.action.ActivateTab(1) },
