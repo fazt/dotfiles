@@ -40,6 +40,17 @@ config.mouse_bindings = {
 
 config.keys = {
   { key = "F11", action = wezterm.action.ToggleFullScreen },
+  {
+    key = "F2",
+    action = wezterm.action.PromptInputLine {
+      description = "Enter new tab title",
+      action = wezterm.action_callback(function(window, _, line)
+        if line then
+          window:active_tab():set_title(line)
+        end
+      end),
+    },
+  },
 
   { key = "UpArrow",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
   { key = "DownArrow", mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
