@@ -23,6 +23,9 @@ config.window_padding = {
 config.default_cursor_style = "BlinkingBar"
 config.scrollback_lines = 50000
 config.enable_scroll_bar = true
+config.colors = {
+  scrollbar_thumb = "#555555",
+}
 
 config.window_decorations = "TITLE | RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
@@ -30,11 +33,44 @@ config.hide_tab_bar_if_only_one_tab = true
 config.initial_cols = 110
 config.initial_rows = 30
 
+-- Preserve long lines when copying (don't insert newlines at wrapping points)
+config.canonicalize_pasted_newlines = "None"
+
 config.mouse_bindings = {
+  -- Ctrl+Click to open links
   {
     event = { Up = { streak = 1, button = "Left" } },
     mods = "CTRL",
     action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+  -- Restore default: click selects text
+  {
+    event = { Down = { streak = 1, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor "Cell",
+  },
+  {
+    event = { Drag = { streak = 1, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.ExtendSelectionToMouseCursor "Cell",
+  },
+  -- Double-click selects word
+  {
+    event = { Down = { streak = 2, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor "Word",
+  },
+  -- Triple-click selects line
+  {
+    event = { Down = { streak = 3, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor "Line",
+  },
+  -- Right-click paste
+  {
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = wezterm.action.PasteFrom "Clipboard",
   },
 }
 
