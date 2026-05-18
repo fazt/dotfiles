@@ -2,29 +2,25 @@
 
 Personal [Claude Code](https://claude.com/claude-code) skills.
 
-## Install (Windows / PowerShell)
+## Install
 
-Skills live at `~/.claude/skills/<name>/SKILL.md`. Copy them into place:
+Each skill in `skills/` gets symlinked into `~/.claude/skills/<name>` so editing the dotfiles repo updates Claude Code directly.
 
-```powershell
-Copy-Item -Recurse -Force $HOME\dotfiles\claude\skills\* $HOME\.claude\skills\
-```
-
-Or symlink each one (requires Developer Mode or admin):
+**Windows (PowerShell)** — requires Developer Mode enabled, or run as Administrator:
 
 ```powershell
-Get-ChildItem $HOME\dotfiles\claude\skills | ForEach-Object {
-  New-Item -ItemType SymbolicLink `
-    -Path "$HOME\.claude\skills\$($_.Name)" `
-    -Target $_.FullName
-}
+cd dotfiles/claude
+.\install.ps1
 ```
 
-## Install (Linux / macOS)
+**Linux / macOS:**
 
 ```bash
-ln -sf ~/dotfiles/claude/skills/* ~/.claude/skills/
+cd dotfiles/claude
+bash install.sh
 ```
+
+Both scripts are idempotent — re-running them re-creates the symlinks.
 
 ## Skills
 
