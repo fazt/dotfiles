@@ -8,6 +8,7 @@ Personal dotfiles for Windows and Linux/macOS.
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
 | [WezTerm](wezterm/) | Terminal emulator config |
+| [Claude](claude/) | Personal Claude Code skills (`fx*`) |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
 | [Shell](shell/) | Aliases for bash/zsh and PowerShell |
@@ -46,6 +47,19 @@ Configs include: Tomorrow Night Bright theme, JetBrainsMono Nerd Font, PowerShel
 cd dotfiles/wezterm
 .\install.ps1
 ```
+
+## Claude
+
+Personal [Claude Code](https://claude.com/claude-code) skills (all prefixed with `fx`). See [claude/README.md](claude/README.md) for the full list and install instructions.
+
+| Skill | What it does |
+|-------|--------------|
+| `fx-browser` | Tests a feature using chrome-devtools MCP or Playwright |
+| `fx-build` | Runs the build and fixes errors / lint issues |
+| `fx-question-me` | Interrogates you about your plan until every ambiguity is resolved |
+| `fx-style` | Blueprint for a Users Management admin page (CRUD table, search, filters, pagination) |
+| `fxcommit` | `git status` → stage → version bump (web) → commit → push |
+| `fxdocker` | Generates a dev `docker-compose` (checks free ports, no volumes) |
 
 ## Scripts
 
