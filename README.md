@@ -54,10 +54,10 @@ Personal [Claude Code](https://claude.com/claude-code) skills (all prefixed with
 
 | Skill | What it does |
 |-------|--------------|
-| `fx-browser` | Tests a feature using chrome-devtools MCP or Playwright |
-| `fx-build` | Runs the build and fixes errors / lint issues |
-| `fx-question-me` | Interrogates you about your plan until every ambiguity is resolved |
-| `fx-style` | Blueprint for a Users Management admin page (CRUD table, search, filters, pagination) |
+| `fxbrowser` | Tests a feature using chrome-devtools MCP or Playwright |
+| `fxbuild` | Runs the build and fixes errors / lint issues |
+| `fxquestionme` | Interrogates you about your plan until every ambiguity is resolved |
+| `fxstyle` | Blueprint for a Users Management admin page (CRUD table, search, filters, pagination) |
 | `fxcommit` | `git status` → stage → version bump (web) → commit → push |
 | `fxdocker` | Generates a dev `docker-compose` (checks free ports, no volumes) |
 

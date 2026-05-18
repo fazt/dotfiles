@@ -1,5 +1,5 @@
 ---
-name: fx-browser
+name: fxbrowser
 description: Test the feature using a browser automation tool like Chrome DevTools Protocol (CDP) or Playwright.
 ---
 

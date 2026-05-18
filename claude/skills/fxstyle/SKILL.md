@@ -1,5 +1,5 @@
 ---
-name: fx-style
+name: fxstyle
 description: Blueprint for building a Users Management admin page (CRUD table with search, column filters, pagination, and copy-email-to-clipboard). Asks which platforms to use before starting.
 ---
 

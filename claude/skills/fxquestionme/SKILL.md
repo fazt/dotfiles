@@ -1,5 +1,5 @@
 ---
-name: fx-question-me
+name: fxquestionme
 description: Bombards the user with relentless questions about their
   plan, design, or decisions until every ambiguity is resolved.
   Use when the user wants to stress-test an idea or says "question me".

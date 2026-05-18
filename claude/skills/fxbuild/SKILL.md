@@ -1,5 +1,5 @@
 ---
-name: fx-build
+name: fxbuild
 description: Check the build, to fix errors and linting errors
 ---
 
