@@ -91,6 +91,15 @@ config.keys = {
       end),
     },
   },
+  { key = "W", mods = "ALT|SHIFT", action = wezterm.action.PromptInputLine {
+      description = "Rename workspace to:",
+      action = wezterm.action_callback(function(window, _, line)
+        if line and line ~= "" then
+          wezterm.mux.rename_workspace(window:active_workspace(), line)
+        end
+      end),
+    },
+  },
 
   {
     key = "F2",
