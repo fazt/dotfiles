@@ -1,10 +1,9 @@
 return {
-  "marko-cerovac/material.nvim",
+  "nyoom-engineering/oxocarbon.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    vim.g.material_style = "deep ocean"
-    require("material").setup()
-    vim.cmd.colorscheme("material")
+    vim.opt.background = "dark"
+    vim.cmd.colorscheme("oxocarbon")
   end,
 }

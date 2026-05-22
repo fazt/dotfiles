@@ -11,6 +11,9 @@ return {
     { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
   },
   opts = {
+    window = {
+      width = 28,
+    },
     filesystem = {
       filtered_items = {
         visible = true,
@@ -19,4 +22,18 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("neo-tree").setup(opts)
+
+    local bg = "#0a0a0a"
+    local function set_dark()
+      vim.api.nvim_set_hl(0, "NeoTreeNormal",      { bg = bg })
+      vim.api.nvim_set_hl(0, "NeoTreeNormalNC",    { bg = bg })
+      vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = bg })
+      vim.api.nvim_set_hl(0, "NeoTreeWinSeparator",{ bg = bg, fg = bg })
+      vim.api.nvim_set_hl(0, "NeoTreeStatusLine",  { bg = bg })
+    end
+    set_dark()
+    vim.api.nvim_create_autocmd("ColorScheme", { callback = set_dark })
+  end,
 }

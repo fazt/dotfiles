@@ -1,32 +1,19 @@
 return {
-  "nvimdev/dashboard-nvim",
-  event = "VimEnter",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
   opts = {
-    theme = "doom",
-    config = {
-      header = {
-        "",
-        "",
-        " ⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷ ",
-        " ⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠁⣿⣿⣿⡟⣰⣶⣦⣶⣶⣦⣶⣶ ",
-        " ⡿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⠿ ",
-        " ⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⣿⡿⢿⣿⣿⣿⣿⠿⣿⡿⠿⢿⣿⡇⠀⠀⠀⠀⠀ ",
-        " ⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⡇⠀⠈⢻⣿⠁⠀⣿⡇⠀⠀⣿⡇⠀⠀⠀⠀⠀ ",
-        " ⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⣿⡇⠀⠀⢸⣿⠀⠀⣿⡇⠀⠀⣿⡇⠀⠀⠀⠀⠀ ",
-        " ⣿⣿⣿⣿⣿⣿⣿⣧⣤⣤⣤⣿⣧⣤⣤⣼⣿⣤⣤⣿⣧⣤⣤⣿⣧⣤⣤⣤⣤⣤ ",
-        "",
-        "",
+    dashboard = {
+      preset = {
+        keys = {
+          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+          { icon = " ", key = "p", desc = "Plugins", action = ":Lazy" },
+          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        },
       },
-      center = {
-        { action = "Telescope find_files", desc = " Find file", icon = "󰈞 ", key = "f" },
-        { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
-        { action = "Telescope oldfiles", desc = " Recent files", icon = "󰊄 ", key = "r" },
-        { action = "Telescope live_grep", desc = " Find text", icon = "󰊄 ", key = "g" },
-        { action = "Lazy", desc = " Plugins", icon = "󰒲 ", key = "p" },
-        { action = "qa", desc = " Quit", icon = " ", key = "q" },
-      },
-      footer = {},
     },
   },
 }
