@@ -9,6 +9,7 @@ Personal dotfiles for Windows and Linux/macOS.
 | [Alacritty](alacritty/) | Terminal emulator config |
 | [WezTerm](wezterm/) | Terminal emulator config |
 | [Claude](claude/) | Personal Claude Code skills (`fx*`) |
+| [Neovim](nvim/) | Neovim config (lazy.nvim, telescope, neo-tree, dashboard) |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
 | [Shell](shell/) | Aliases for bash/zsh and PowerShell |
@@ -46,6 +47,24 @@ Configs include: Tomorrow Night Bright theme, JetBrainsMono Nerd Font, PowerShel
 ```powershell
 cd dotfiles/wezterm
 .\install.ps1
+```
+
+## Neovim
+
+Neovim config based on [lazy.nvim](https://github.com/folke/lazy.nvim) with telescope, neo-tree, dashboard, lualine, gitsigns and material theme. Leader key is `Space`. See [nvim/README.md](nvim/README.md) for shortcuts and the full plugin list.
+
+### Install
+
+**Windows (PowerShell as Admin):**
+
+```powershell
+New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim" -Target "$HOME\dotfiles\nvim"
+```
+
+**Linux/macOS:**
+
+```bash
+ln -s ~/dotfiles/nvim ~/.config/nvim
 ```
 
 ## Claude

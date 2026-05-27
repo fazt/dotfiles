@@ -8,9 +8,18 @@ return {
   },
   cmd = "Neotree",
   keys = {
-    { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
+    { "<leader>e",  "<cmd>Neotree toggle<cr>",      desc = "Toggle Neo-tree" },
+    { "<leader>gs", "<cmd>Neotree git_status<cr>",  desc = "Neo-tree git status" },
   },
   opts = {
+    source_selector = {
+      winbar = true,
+      sources = {
+        { source = "filesystem" },
+        { source = "buffers" },
+        { source = "git_status" },
+      },
+    },
     window = {
       width = 28,
     },

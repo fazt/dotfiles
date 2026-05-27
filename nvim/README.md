@@ -64,6 +64,9 @@ Dentro de Telescope:
 | Atajo | Accion |
 |---|---|
 | `Space e` | Abrir/cerrar explorador de archivos |
+| `Space gs` | Abrir Neo-tree en vista git status |
+
+Neo-tree muestra un selector de fuentes en la parte superior para alternar entre `filesystem`, `buffers` y `git_status`.
 
 ## Requisitos
 
