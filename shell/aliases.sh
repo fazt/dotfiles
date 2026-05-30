@@ -2,7 +2,7 @@
 # Shell aliases
 
 # Claude
-alias cc="claude"
+alias cc="claude --dangerously-skip-permissions"
 
 # Git
 alias g="git"
