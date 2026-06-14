@@ -10,7 +10,7 @@ end
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12
 
-config.color_scheme = "Vibrant Ink (Gogh)"
+config.color_scheme = "Vacuous 2 (terminal.sexy)"
 config.window_background_opacity = 0.95
 
 config.window_padding = {
@@ -113,8 +113,8 @@ config.keys = {
     },
   },
 
-  { key = "UpArrow",    mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(-1) },
-  { key = "DownArrow",  mods = "CTRL|SHIFT", action = wezterm.action.ScrollByLine(1) },
+  { key = "UpArrow",    mods = "CTRL|SHIFT", action = wezterm.action.ScrollByPage(-0.5) },
+  { key = "DownArrow",  mods = "CTRL|SHIFT", action = wezterm.action.ScrollByPage(0.5) },
   { key = "LeftArrow",  mods = "CTRL|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
   { key = "RightArrow", mods = "CTRL|SHIFT", action = wezterm.action.MoveTabRelative(1) },
 
