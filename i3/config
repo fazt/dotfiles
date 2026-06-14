@@ -54,6 +54,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # Espacios de trabajo 1–5 (Súper+número para ir, +Shift para mover ventana)
+# Pulsar la MISMA tecla otra vez te devuelve al anterior (ir y volver, como deslizarte)
+workspace_auto_back_and_forth yes
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
