@@ -7,7 +7,7 @@ i3 tiling window manager setup (X11) — dark theme matching Orchis-Dark.
 | File | Installed to | Description |
 |------|--------------|-------------|
 | `config` | `~/.config/i3/config` | Main i3 config |
-| `i3status.config` | `~/.config/i3status/config` | Status bar (network, battery, volume, memory, load, disk, clock) with Font Awesome icons |
+| `i3status.config` | `~/.config/i3status/config` | Status bar (network, battery, volume, CPU usage, CPU temp, memory, load, disk, clock) with Font Awesome icons |
 | `rofi.rasi` | `~/.config/rofi/config.rasi` | Black rofi launcher theme |
 | `bin/screenshot.sh` | `~/.local/bin/screenshot.sh` | Region/full screenshots (clipboard via xclip, or save to file) |
 | `bin/brightness.sh` | `~/.local/bin/brightness.sh` | Screen brightness via logind (no root) |
