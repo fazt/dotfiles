@@ -130,9 +130,9 @@ bar {
     font pango:Noto Sans, FontAwesome 11
     separator_symbol "  "
     colors {
-        background #1a1a1a
+        background #000000
         statusline #cccccc
-        separator  #555555
+        separator  #333333
         focused_workspace  #5294e2 #5294e2 #ffffff
         inactive_workspace #2b2e33 #2b2e33 #888888
         urgent_workspace   #e2554e #e2554e #ffffff
