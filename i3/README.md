@@ -7,8 +7,11 @@ i3 tiling window manager setup (X11) — dark theme matching Orchis-Dark.
 | File | Installed to | Description |
 |------|--------------|-------------|
 | `config` | `~/.config/i3/config` | Main i3 config |
-| `i3status.config` | `~/.config/i3status/config` | Status bar (network, battery, volume, CPU usage, CPU temp, memory, load, disk, clock) with Font Awesome icons |
+| `polybar.ini` | `~/.config/polybar/config.ini` | Main status bar — Polybar (workspaces, CPU, temp, memory, disk, wifi, ethernet, volume, battery, clock, tray) with Nerd Font icons |
+| `i3status.config` | `~/.config/i3status/config` | Legacy i3bar status (kept for the commented-out i3bar fallback in `config`) |
 | `rofi.rasi` | `~/.config/rofi/config.rasi` | Black rofi launcher theme |
+| `bin/polybar-launch.sh` | `~/.local/bin/polybar-launch.sh` | Launches Polybar (kills previous instances); run from i3 `exec_always` |
+| `bin/polybar-vol.sh` | `~/.local/bin/polybar-vol.sh` | Volume readout for Polybar via `wpctl` (PipeWire) |
 | `bin/screenshot.sh` | `~/.local/bin/screenshot.sh` | Region/full screenshots (clipboard via xclip, or save to file) |
 | `bin/brightness.sh` | `~/.local/bin/brightness.sh` | Screen brightness via logind (no root) |
 | `bin/powermenu.sh` | `~/.local/bin/powermenu.sh` | rofi power menu (shutdown/reboot/suspend/lock/logout) |
@@ -38,8 +41,9 @@ Media keys (`XF86Audio*`, `XF86MonBrightness*`) and `Super+F1..F6` mirror the Th
 
 ## Dependencies
 
-`i3`, `i3status`, `rofi`, `wezterm`, `thunar`, `nm-applet`, `xfsettingsd` (applies the GTK theme),
-`xfce4-screenshooter`, `xclip`, `wireplumber` (`wpctl`). Fonts: Noto Sans, Font Awesome 4.
+`i3`, `polybar`, `rofi`, `wezterm`, `thunar`, `nm-applet`, `xfsettingsd` (applies the GTK theme),
+`xfce4-screenshooter`, `xclip`, `wireplumber` (`wpctl`), `jq`. Fonts: JetBrainsMono Nerd Font
+(Polybar icons), Noto Sans. `i3status` + Font Awesome only needed for the commented i3bar fallback.
 
 ## Install
 

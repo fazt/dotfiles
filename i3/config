@@ -122,19 +122,23 @@ exec --no-startup-id xfsettingsd
 exec --no-startup-id xsetroot -solid "#000000"
 # Icono de red en la bandeja (gestionar wifi con clic, como en XFCE)
 exec --no-startup-id nm-applet
+# Barra Polybar (reemplaza a i3bar). exec_always para que se relance al recargar i3.
+exec_always --no-startup-id ~/.local/bin/polybar-launch.sh
 
-# ─────────────── BARRA DE ESTADO (nativa: i3bar + i3status) ───────────────
-bar {
-    status_command i3status
-    position top
-    font pango:Noto Sans, FontAwesome 11
-    separator_symbol "  "
-    colors {
-        background #000000
-        statusline #cccccc
-        separator  #333333
-        focused_workspace  #5294e2 #5294e2 #ffffff
-        inactive_workspace #2b2e33 #2b2e33 #888888
-        urgent_workspace   #e2554e #e2554e #ffffff
-    }
-}
+# ─────────────── BARRA DE ESTADO ───────────────
+# Ahora usamos Polybar (ver exec_always arriba). El i3bar nativo queda desactivado
+# pero lo dejo comentado por si quieres volver a él: descomenta y quita el polybar-launch.
+# bar {
+#     status_command i3status
+#     position top
+#     font pango:Noto Sans, FontAwesome 11
+#     separator_symbol "  "
+#     colors {
+#         background #000000
+#         statusline #cccccc
+#         separator  #333333
+#         focused_workspace  #5294e2 #5294e2 #ffffff
+#         inactive_workspace #2b2e33 #2b2e33 #888888
+#         urgent_workspace   #e2554e #e2554e #ffffff
+#     }
+# }
