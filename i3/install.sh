@@ -11,7 +11,7 @@ ln -sf "$SCRIPT_DIR/config"          "$HOME/.config/i3/config"
 ln -sf "$SCRIPT_DIR/i3status.config" "$HOME/.config/i3status/config"
 ln -sf "$SCRIPT_DIR/rofi.rasi"       "$HOME/.config/rofi/config.rasi"
 
-for s in screenshot.sh brightness.sh powermenu.sh; do
+for s in screenshot.sh brightness.sh powermenu.sh rename-workspace.sh; do
   ln -sf "$SCRIPT_DIR/bin/$s" "$HOME/.local/bin/$s"
 done
 chmod +x "$SCRIPT_DIR"/bin/*.sh

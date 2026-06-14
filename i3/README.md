@@ -25,6 +25,7 @@ i3 tiling window manager setup (X11) — dark theme matching Orchis-Dark.
 | `Super+F` | Fullscreen |
 | `Super+1..5` | Switch workspace |
 | `Super+Shift+1..5` | Move window to workspace |
+| `Super+N` | Rename current workspace (rofi; keeps the number) |
 | `Super+arrows` | Focus window |
 | `Super+Shift+arrows` | Move window |
 | `Super+Y` | Resize mode |
