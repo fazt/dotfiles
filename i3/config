@@ -1,0 +1,135 @@
+# ~/.config/i3/config — configuración inicial amable para empezar
+# Editable en texto. Tras cambiar algo: Súper+Shift+R para reiniciar i3.
+
+# Tecla principal = Súper (la de Windows). Es cómoda y no choca con apps.
+set $mod Mod4
+
+font pango:Noto Sans 10
+set $term wezterm start --always-new-process
+
+# Con Súper + arrastrar ratón puedes mover/redimensionar ventanas flotantes
+floating_modifier $mod
+
+# ─────────────── LO ESENCIAL (los 6 atajos del día 1) ───────────────
+# Abrir terminal
+bindsym $mod+Return exec $term
+# Lanzador de apps (reemplaza a ulauncher). Usa rofi; si no está, dmenu.
+bindsym $mod+r exec --no-startup-id "rofi -show drun || dmenu_run"
+# Gestor de archivos (Thunar) — acceso rápido a tus carpetas (estilo Windows)
+bindsym $mod+e exec --no-startup-id thunar
+# Selector de ventanas abiertas (todas, de cualquier workspace) — útil en pantalla completa
+bindsym $mod+Tab exec --no-startup-id rofi -show window
+# Cerrar la ventana enfocada
+bindsym $mod+Shift+q kill
+# Cerrar ventana también con Alt+F4 (estilo Windows)
+bindsym Mod1+F4 kill
+# Pantalla completa
+bindsym $mod+f fullscreen toggle
+# Mover el foco entre ventanas con las flechas
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+# Salir de i3 (con confirmación) → te devuelve al login
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '¿Salir de i3?' -B 'Salir' 'i3-msg exit'"
+# Menú de apagado/sesión (Apagar, Reiniciar, Suspender, Bloquear, Cerrar sesión)
+bindsym $mod+Shift+p exec --no-startup-id ~/.local/bin/powermenu.sh
+
+# ─────────────── SIGUIENTE NIVEL (cuando ya te sientas cómodo) ───────────────
+# Mover la ventana de sitio
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+# Cómo se abrirá la siguiente ventana: al lado (h) o debajo (v)
+bindsym $mod+h split h
+bindsym $mod+v split v
+# Hacer una ventana flotante (útil para diálogos; se mueve con el ratón)
+bindsym $mod+Shift+space floating toggle
+# Scratchpad: apartar la ventana (esconderla) y traerla de vuelta
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+# Recargar/reiniciar i3 tras editar esta config
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Espacios de trabajo 1–5 (Súper+número para ir, +Shift para mover ventana)
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+
+# Redimensionar: Súper+Y entra en modo, flechas ajustan, Enter/Esc sale
+bindsym $mod+y mode "resize"
+mode "resize" {
+    bindsym Left  resize shrink width  5 px or 5 ppt
+    bindsym Right resize grow   width  5 px or 5 ppt
+    bindsym Up    resize shrink height 5 px or 5 ppt
+    bindsym Down  resize grow   height 5 px or 5 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# ─────────────── ESTÉTICA (oscura, a juego con Orchis-Dark) ───────────────
+gaps inner 8
+gaps outer 2
+default_border pixel 2
+#                       borde   fondo   texto   indic   borde-hijo
+client.focused          #5294e2 #5294e2 #ffffff #5294e2 #5294e2
+client.focused_inactive #2b2e33 #2b2e33 #aaaaaa #2b2e33 #2b2e33
+client.unfocused        #2b2e33 #2b2e33 #888888 #2b2e33 #2b2e33
+
+# ─────────────── TECLAS MULTIMEDIA (Fn) ───────────────
+# Volumen (PipeWire/WirePlumber)
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute        exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute     exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+# Brillo de pantalla
+bindsym XF86MonBrightnessUp   exec --no-startup-id ~/.local/bin/brightness.sh up 5
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.local/bin/brightness.sh down 5
+
+# Alternativa fiable: Súper + fila F (imita lo dibujado en el ThinkPad)
+bindsym $mod+F1 exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym $mod+F2 exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym $mod+F3 exec --no-startup-id wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym $mod+F4 exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym $mod+F5 exec --no-startup-id ~/.local/bin/brightness.sh down 5
+bindsym $mod+F6 exec --no-startup-id ~/.local/bin/brightness.sh up 5
+
+# ─────────────── CAPTURAS DE PANTALLA ───────────────
+bindsym Print        exec --no-startup-id ~/.local/bin/screenshot.sh clip     # región → portapapeles (no guarda)
+bindsym $mod+Shift+s exec --no-startup-id ~/.local/bin/screenshot.sh clip     # región → portapapeles (estilo Windows)
+bindsym Shift+Print  exec --no-startup-id ~/.local/bin/screenshot.sh region   # región → guardar archivo
+bindsym Ctrl+Print   exec --no-startup-id ~/.local/bin/screenshot.sh full     # pantalla completa → guardar
+bindsym $mod+Print   exec --no-startup-id xfce4-screenshooter                 # abrir la GUI completa
+
+# ─────────────── AL ARRANCAR ───────────────
+# Aplica el tema (Orchis-Dark), iconos, fuente y cursor — el mismo demonio que usa XFCE
+exec --no-startup-id xfsettingsd
+# Fondo negro (si no tienes xsetroot, ignóralo: no rompe nada)
+exec --no-startup-id xsetroot -solid "#000000"
+# Icono de red en la bandeja (gestionar wifi con clic, como en XFCE)
+exec --no-startup-id nm-applet
+
+# ─────────────── BARRA DE ESTADO (nativa: i3bar + i3status) ───────────────
+bar {
+    status_command i3status
+    position top
+    font pango:Noto Sans, FontAwesome 11
+    separator_symbol "  "
+    colors {
+        background #1a1a1a
+        statusline #cccccc
+        separator  #555555
+        focused_workspace  #5294e2 #5294e2 #ffffff
+        inactive_workspace #2b2e33 #2b2e33 #888888
+        urgent_workspace   #e2554e #e2554e #ffffff
+    }
+}

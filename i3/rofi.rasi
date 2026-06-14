@@ -1,0 +1,86 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Tela-black-dark";
+    drun-display-format: "{name}";
+    display-drun: "  Apps";
+    display-run: "  Ejecutar";
+    display-window: "  Ventanas";
+}
+
+* {
+    bg:        #000000;
+    bg-alt:    #0d0d0d;
+    fg:        #e6e6e6;
+    fg-dim:    #8a8a8a;
+    accent:    #5294e2;
+    sel-fg:    #ffffff;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    background-color: @bg;
+    border: 2px;
+    border-color: @accent;
+    border-radius: 10px;
+    width: 640px;
+    padding: 14px;
+}
+
+mainbox {
+    spacing: 12px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 10px 14px;
+    spacing: 10px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder: "Buscar…";
+    placeholder-color: @fg-dim;
+}
+
+listview {
+    lines: 8;
+    scrollbar: false;
+    fixed-height: false;
+}
+
+element {
+    padding: 8px 12px;
+    spacing: 10px;
+    border-radius: 8px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @sel-fg;
+}
+
+element-icon {
+    size: 1.3em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
