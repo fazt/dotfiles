@@ -1,0 +1,38 @@
+#!/bin/bash
+# Disable the ThinkPad TrackPoint (red nub) that drifts (cursor moves on its own).
+# On modern ThinkPads the nub is exposed as a generic "PS/2 Generic Mouse" through
+# the RMI4 pass-through, so it does NOT expose the classic drift_time/sensitivity
+# knobs. The only reliable fix is to disable the device.
+#
+# Installs a global X11 InputClass rule so it stays disabled across reboots and
+# in any X11 session (i3, GNOME, KDE...). Also disables it in the running session
+# right now. Re-run safely; it's idempotent. Needs sudo. (X11 only, not Wayland.)
+set -e
+
+DEVICE="PS/2 Generic Mouse"
+CONF="/etc/X11/xorg.conf.d/99-disable-trackpoint.conf"
+
+# 1. Install the persistent X11 rule
+sudo install -d -m 755 /etc/X11/xorg.conf.d
+sudo tee "$CONF" > /dev/null <<EOF
+# Disable the ThinkPad TrackPoint (red nub) — exposed as a generic PS/2 mouse
+# through the RMI4 pass-through. It drifts, and the hardware doesn't expose
+# drift_time, so we disable it outright. Managed by dotfiles/scripts/disable-trackpoint.
+Section "InputClass"
+    Identifier  "Disable TrackPoint"
+    MatchProduct "$DEVICE"
+    MatchIsPointer "on"
+    Option      "Ignore" "on"
+EndSection
+EOF
+echo "Installed X11 rule: $CONF"
+
+# 2. Disable it in the current session too (no reboot needed), if present
+if command -v xinput &>/dev/null && xinput list --name-only 2>/dev/null | grep -qxF "$DEVICE"; then
+  xinput disable "$DEVICE" && echo "Disabled '$DEVICE' in the current session."
+else
+  echo "Note: '$DEVICE' not found in the running X session (name may differ on this machine)."
+  echo "      Check 'xinput list' and adjust DEVICE in this script if needed."
+fi
+
+echo "Done. Takes full effect on the next X server start / login."
