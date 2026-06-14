@@ -66,6 +66,8 @@ bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5
+# Renombrar el workspace actual al vuelo (rofi pide el nombre, Enter para confirmar)
+bindsym $mod+n exec --no-startup-id sh -c 'n=$(rofi -dmenu -l 0 -p "Nombre del workspace") && [ -n "$n" ] && i3-msg "rename workspace to \"$n\""'
 
 # Redimensionar: Súper+Y entra en modo, flechas ajustan, Enter/Esc sale
 bindsym $mod+y mode "resize"
