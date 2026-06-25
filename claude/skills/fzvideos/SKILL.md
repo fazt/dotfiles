@@ -1,5 +1,5 @@
 ---
-name: fxvideos
+name: fzvideos
 description: Lista los videos de una carpeta con su duracion y los renombra en orden (1.mkv, 2.mkv, ...)
 ---
 
