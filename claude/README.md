@@ -4,9 +4,9 @@ Personal [Claude Code](https://claude.com/claude-code) skills.
 
 ## Install
 
-Each skill in `skills/` gets symlinked into `~/.claude/skills/<name>` so editing the dotfiles repo updates Claude Code directly.
+Each skill in `skills/` gets linked into both `~/.claude/skills/<name>` and `~/.agents/skills/<name>` so editing the dotfiles repo updates Claude Code and other local agents directly.
 
-**Windows (PowerShell)** — requires Developer Mode enabled, or run as Administrator:
+**Windows (PowerShell)** — uses symlinks when available and falls back to junctions:
 
 ```powershell
 cd dotfiles/claude
@@ -20,7 +20,7 @@ cd dotfiles/claude
 bash install.sh
 ```
 
-Both scripts are idempotent — re-running them re-creates the symlinks.
+Both scripts are idempotent — re-running them re-creates the links.
 
 ## Skills
 
