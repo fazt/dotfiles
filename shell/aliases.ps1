@@ -1,7 +1,7 @@
 # PowerShell aliases
 
 # Claude
-function cc { claude --dangerously-skip-permissions $args }
+function cl { claude --dangerously-skip-permissions $args }
 function cx { codex --dangerously-bypass-approvals-and-sandbox $args }
 
 # Git

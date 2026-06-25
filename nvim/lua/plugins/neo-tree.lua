@@ -12,6 +12,15 @@ return {
     { "<leader>gs", "<cmd>Neotree git_status<cr>",  desc = "Neo-tree git status" },
   },
   opts = {
+    default_component_configs = {
+      indent = {
+        indent_size = 3,
+        padding = 1,
+        with_markers = true,
+        indent_marker = "│",
+        last_indent_marker = "└",
+      },
+    },
     source_selector = {
       winbar = true,
       sources = {

@@ -6,6 +6,18 @@ description: Blueprint and Guidelines for building Web Applications (auth, user 
 # General Considerations
 
 - Zod for Validation (backend and frontend)
+- for transactional email use Resend
+- for uploading files use Digitalocean Spaces
+
+- Dashboard and landing support light/dark themes
+
+# Auth cosniderations
+
+Auth pages has to be conform by:
+
+- Login with email/password page
+- forgot-password page
+- reset-password page
 
 # Dashboard considerations
 
@@ -26,3 +38,8 @@ description: Blueprint and Guidelines for building Web Applications (auth, user 
     - the new page has a form, this form is reusable for create and edit
 
 Management admin page (CRUD table with search, column filters, pagination, and copy-email-to-clipboard). Asks which platforms to use before starting.
+
+## API
+
+- validate api endpoints with zod
+- use rest design principles to create URLS
