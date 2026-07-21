@@ -79,6 +79,7 @@ Personal [Claude Code](https://claude.com/claude-code) skills (all prefixed with
 | `fxstyle` | Blueprint for a Users Management admin page (CRUD table, search, filters, pagination) |
 | `fxcommit` | `git status` → stage → version bump (web) → commit → push |
 | `fxdocker` | Generates a dev `docker-compose` (checks free ports, no volumes) |
+| `fzvideos` | Lists a folder's videos with their duration (ffprobe) and renames them in order (`1.mkv`, `2.mkv`, …) |
 
 ## Scripts
 
@@ -114,7 +115,7 @@ Shortcuts loaded in every terminal session.
 | Alias | Command |
 |-------|---------|
 | `r` | `ranger` (cd on quit) |
-| `cc` | `claude` |
+| `cl` | `claude --dangerously-skip-permissions` |
 | `cm message` | `git commit -m "message"` |
 | `cma message` | `git add -A && git commit -m "message"` |
 | `gs` | `git status` |
