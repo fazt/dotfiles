@@ -10,7 +10,7 @@ end
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12
 
-config.color_scheme = "Vacuous 2 (terminal.sexy)"
+config.color_scheme = "Tomorrow Night Bright"
 config.window_background_opacity = 0.95
 
 config.window_padding = {
@@ -25,6 +25,20 @@ config.scrollback_lines = 50000
 config.enable_scroll_bar = true
 config.colors = {
   scrollbar_thumb = "#555555",
+  tab_bar = {
+    background = "#0a0a0a",
+    inactive_tab_edge = "#0a0a0a",
+    active_tab = { bg_color = "#000000", fg_color = "#eaeaea" },
+    inactive_tab = { bg_color = "#0a0a0a", fg_color = "#707070" },
+    inactive_tab_hover = { bg_color = "#161616", fg_color = "#eaeaea" },
+    new_tab = { bg_color = "#0a0a0a", fg_color = "#707070" },
+    new_tab_hover = { bg_color = "#161616", fg_color = "#eaeaea" },
+  },
+}
+
+config.window_frame = {
+  active_titlebar_bg = "#0a0a0a",
+  inactive_titlebar_bg = "#0a0a0a",
 }
 
 config.window_decorations = "TITLE | RESIZE"
