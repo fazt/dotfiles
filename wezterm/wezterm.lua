@@ -23,8 +23,35 @@ config.window_padding = {
 config.default_cursor_style = "BlinkingBar"
 config.scrollback_lines = 50000
 config.enable_scroll_bar = true
+-- Tomorrow Night Bright define ANSI 0 (black) y ANSI 8 (bright black) en
+-- #000000, iguales al fondo: los flags y textos "dim" de las CLIs quedaban
+-- invisibles. Se re-declara la paleta completa (obligatorio: wezterm exige
+-- los 8 colores) idéntica al esquema original, cambiando solo esos dos.
+local black = "#6a6a6a"        -- ANSI 0  — contraste 3.9:1 sobre negro
+local bright_black = "#969896" -- ANSI 8  — contraste 7.2:1 sobre negro
+
 config.colors = {
   scrollbar_thumb = "#555555",
+  ansi = {
+    black,     -- 0 black     (era #000000)
+    "#d54e53", -- 1 red
+    "#b9ca4a", -- 2 green
+    "#e7c547", -- 3 yellow
+    "#7aa6da", -- 4 blue
+    "#c397d8", -- 5 magenta
+    "#70c0b1", -- 6 cyan
+    "#ffffff", -- 7 white
+  },
+  brights = {
+    bright_black, -- 8  bright black (era #000000)
+    "#d54e53",    -- 9  bright red
+    "#b9ca4a",    -- 10 bright green
+    "#e7c547",    -- 11 bright yellow
+    "#7aa6da",    -- 12 bright blue
+    "#c397d8",    -- 13 bright magenta
+    "#70c0b1",    -- 14 bright cyan
+    "#ffffff",    -- 15 bright white
+  },
   tab_bar = {
     background = "#0a0a0a",
     inactive_tab_edge = "#0a0a0a",
