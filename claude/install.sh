@@ -24,3 +24,12 @@ for DEST in "${DESTINATIONS[@]}"; do
 done
 
 echo "Claude and agent skills installed!"
+
+# Status line: se referencia por ruta desde settings.json en vez de enlazarse,
+# asi este repo queda como la unica copia del script.
+if command -v node >/dev/null 2>&1; then
+    node "$SCRIPT_DIR/install-statusline.js"
+    echo "Status line installed!"
+else
+    echo "node no encontrado - status line omitida (la status line necesita node)"
+fi

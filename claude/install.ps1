@@ -42,3 +42,14 @@ foreach ($dest in $destinations) {
 }
 
 Write-Host "Claude and agent skills installed!" -ForegroundColor Green
+
+# Status line: se referencia por ruta desde settings.json en vez de enlazarse,
+# asi este repo queda como la unica copia del script.
+$statusLineInstaller = Join-Path $PSScriptRoot "install-statusline.js"
+if (Get-Command node -ErrorAction SilentlyContinue) {
+    node $statusLineInstaller
+    Write-Host "Status line installed!" -ForegroundColor Green
+}
+else {
+    Write-Host "node no encontrado - status line omitida (la status line necesita node)" -ForegroundColor Yellow
+}

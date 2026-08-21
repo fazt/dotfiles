@@ -8,7 +8,7 @@ Personal dotfiles for Windows and Linux/macOS.
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
 | [WezTerm](wezterm/) | Terminal emulator config |
-| [Claude](claude/) | Personal Claude Code skills (`fx*`) |
+| [Claude](claude/) | Personal Claude Code skills (`fx*`) and status line |
 | [Neovim](nvim/) | Neovim config (lazy.nvim, telescope, neo-tree, dashboard) |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |
@@ -69,7 +69,12 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 
 ## Claude
 
-Personal [Claude Code](https://claude.com/claude-code) skills (all prefixed with `fx`). See [claude/README.md](claude/README.md) for the full list and install instructions.
+Personal [Claude Code](https://claude.com/claude-code) skills (all prefixed with `fx`) plus a two-line status line showing path, git branch, model, context usage and remaining subscription quota, styled to match the oh-my-posh `zash` prompt. See [claude/README.md](claude/README.md) for the full list and install instructions.
+
+```
+@fazt ➜ …/Projects/fazt/faztdev git(master ✗)
+Opus 5 (1M context) | ctx ████░░░░░░ 42%/1M | left 5h:84% ⟳04:18  7d:97% ⟳jue 02:27
+```
 
 | Skill | What it does |
 |-------|--------------|
