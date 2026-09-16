@@ -8,6 +8,7 @@ Personal dotfiles for Windows and Linux/macOS.
 |---------|-------------|
 | [Alacritty](alacritty/) | Terminal emulator config |
 | [WezTerm](wezterm/) | Terminal emulator config |
+| [herdr](herdr/) | Terminal workspace manager for AI agents (Ctrl+P session picker) |
 | [Claude](claude/) | Personal Claude Code skills (`fx*`) and status line |
 | [Neovim](nvim/) | Neovim config (lazy.nvim, telescope, neo-tree, dashboard) |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
@@ -46,6 +47,21 @@ Configs include: Tomorrow Night Bright theme, JetBrainsMono Nerd Font, PowerShel
 
 ```powershell
 cd dotfiles/wezterm
+.\install.ps1
+```
+
+## herdr
+
+Terminal workspace manager for AI coding agents. Theme `tokyo-night`, PowerShell 7 as default
+shell, and a `Ctrl+P` session picker that filters from the first keystroke (the native navigator
+makes you press `/` first). Needs node and fzf on PATH. See [herdr/README.md](herdr/) for details.
+
+### Install
+
+**Windows (PowerShell):**
+
+```powershell
+cd dotfiles/herdr
 .\install.ps1
 ```
 

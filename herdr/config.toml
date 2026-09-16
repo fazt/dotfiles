@@ -1,0 +1,25 @@
+onboarding = false
+
+[ui]
+agent_panel_sort = "spaces"
+
+[terminal]
+default_shell = 'C:\Program Files\PowerShell\7\pwsh.exe'
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[keys]
+# El navegador nativo se queda donde estaba.
+goto = "prefix+g"
+
+# Selector propio que abre ya filtrando, sin tener que pulsar "/".
+# El comando pasa por cmd.exe, que expande %APPDATA%.
+[[keys.command]]
+key = "ctrl+p"
+type = "popup"
+description = "Ir a sesion"
+command = 'node "%APPDATA%\herdr\scripts\goto.mjs"'
+width = "70%"
+height = "50%"
