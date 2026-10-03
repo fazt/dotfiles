@@ -101,6 +101,7 @@ Opus 5 (1M context) | ctx ████░░░░░░ 42%/1M | left 5h:84% �
 | `fxcommit` | `git status` → stage → version bump (web) → commit → push |
 | `fxdocker` | Generates a dev `docker-compose` (checks free ports, no volumes) |
 | `fxreview` | Code review against a fixed checklist; findings ranked by severity, no code changes |
+| `fxsecurity` | Whole-project security audit before going public (secrets, authz, abuse and cost limits, input handling, infra, dependencies, AI risks); findings ranked by severity, no code changes |
 | `fzvideos` | Lists a folder's videos with their duration (ffprobe) and renames them in order (`1.mkv`, `2.mkv`, …) |
 
 ## Scripts

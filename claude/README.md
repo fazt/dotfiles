@@ -79,4 +79,5 @@ Necesita `node` en el `PATH`. Los cambios se ven en la siguiente actualizacion d
 | [`fxcommit`](skills/fxcommit/) | hacer commit | `git status` → stage → bump de versión si es web → commit con mensaje corto → push |
 | [`fxdocker`](skills/fxdocker/) | docker compose de dev | Reglas para `docker-compose` de desarrollo (chequea puerto libre, sin volúmenes) |
 | [`fxreview`](skills/fxreview/) | `"review"`, revisar codigo o PR | Code review con checklist fijo (correccion, seguridad, datos, API, mantenibilidad, tests, operacion, higiene del PR); informe por severidad, no toca codigo |
+| [`fxsecurity`](skills/fxsecurity/) | `"audita la seguridad"`, `"es seguro publicar esto"` | Auditoría de seguridad de todo el proyecto antes de hacerlo público (secretos, autorización, abuso y costos, entradas, infraestructura, dependencias, IA, riesgos de mostrarlo en un video); informe por severidad, no toca código |
 | [`fzvideos`](skills/fzvideos/) | listar/renombrar videos | Lista los videos de una carpeta con su duración (ffprobe) y los renombra en orden (`1.mkv`, `2.mkv`, …) |
