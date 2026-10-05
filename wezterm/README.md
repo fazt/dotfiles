@@ -16,7 +16,7 @@ New-Item -ItemType SymbolicLink -Path $HOME\.wezterm.lua -Target $HOME\dotfiles\
 | --- | --- |
 | Fuente | `JetBrainsMono Nerd Font` 12pt |
 | Color scheme | `Vibrant Ink (Gogh)` |
-| Opacidad | `0.95` |
+| Opacidad | `0.99` |
 | Cursor | `BlinkingBar` |
 | Padding | `8px` en los 4 lados |
 | Decoraciones | `TITLE | RESIZE` |

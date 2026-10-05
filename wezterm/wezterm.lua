@@ -11,7 +11,7 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 12
 
 config.color_scheme = "Tomorrow Night Bright"
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.99
 
 config.window_padding = {
   left = 8,
