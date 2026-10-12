@@ -120,9 +120,9 @@ bindsym $mod+Print   exec --no-startup-id xfce4-screenshooter                 # 
 exec --no-startup-id xfsettingsd
 # Fondo negro (si no tienes xsetroot, ignóralo: no rompe nada)
 exec --no-startup-id xsetroot -solid "#000000"
-# Icono de red en la bandeja (gestionar wifi con clic, como en XFCE)
-exec --no-startup-id nm-applet
 # Barra Polybar (reemplaza a i3bar). exec_always para que se relance al recargar i3.
+# El script también lanza los applets de la bandeja (nm-applet y blueman-applet)
+# cuando la bandeja ya existe; por eso no van aquí.
 exec_always --no-startup-id ~/.local/bin/polybar-launch.sh
 
 # ─────────────── BARRA DE ESTADO ───────────────
