@@ -1,10 +1,10 @@
 # Claude Code
 
-Personal [Claude Code](https://claude.com/claude-code) skills y la status line.
+Status line personal de [Claude Code](https://claude.com/claude-code). Las skills `fx*` viven ahora en [fazt/fxcode](https://github.com/fazt/fxcode/tree/master/skills) (ver [Skills](#skills)).
 
 ## Install
 
-Each skill in `skills/` gets linked into both `~/.claude/skills/<name>` and `~/.agents/skills/<name>` so editing the dotfiles repo updates Claude Code and other local agents directly. Los instaladores tambien apuntan el `statusLine` de `~/.claude/settings.json` al [`statusline.js`](statusline.js) de este repo.
+Los instaladores apuntan el `statusLine` de `~/.claude/settings.json` al [`statusline.js`](statusline.js) de este repo.
 
 **Windows (PowerShell)** — uses symlinks when available and falls back to junctions:
 
@@ -70,14 +70,6 @@ Necesita `node` en el `PATH`. Los cambios se ven en la siguiente actualizacion d
 
 ## Skills
 
-| Skill | Trigger | What it does |
-| --- | --- | --- |
-| [`fxbrowser`](skills/fxbrowser/) | testear feature en navegador | Abre el navegador con chrome-devtools MCP o Playwright y prueba la feature |
-| [`fxbuild`](skills/fxbuild/) | revisar build | Corre el build hasta que pase y arregla errores de linting |
-| [`fxquestionme`](skills/fxquestionme/) | `"question me"` | Te interroga sin parar (una pregunta a la vez) hasta resolver toda ambigüedad sobre tu plan/diseño |
-| [`fxstyle`](skills/fxstyle/) | construir admin de usuarios | Blueprint para una página Users Management (CRUD, búsqueda, filtros por columna, paginación, copiar email) |
-| [`fxcommit`](skills/fxcommit/) | hacer commit | `git status` → stage → bump de versión si es web → commit con mensaje corto → push |
-| [`fxdocker`](skills/fxdocker/) | docker compose de dev | Reglas para `docker-compose` de desarrollo (chequea puerto libre, sin volúmenes) |
-| [`fxreview`](skills/fxreview/) | `"review"`, revisar codigo o PR | Code review con checklist fijo (correccion, seguridad, datos, API, mantenibilidad, tests, operacion, higiene del PR); informe por severidad, no toca codigo |
-| [`fxsecurity`](skills/fxsecurity/) | `"audita la seguridad"`, `"es seguro publicar esto"` | Auditoría de seguridad de todo el proyecto antes de hacerlo público (secretos, autorización, abuso y costos, entradas, infraestructura, dependencias, IA, riesgos de mostrarlo en un video); informe por severidad, no toca código |
-| [`fzvideos`](skills/fzvideos/) | listar/renombrar videos | Lista los videos de una carpeta con su duración (ffprobe) y los renombra en orden (`1.mkv`, `2.mkv`, …) |
+Las skills `fx*` (fxbrowser, fxbuild, fxcommit, fxdocker, fxquestionme, fxreview, fxsecurity, fxstyle) se mudaron al repo de FXCode, junto a `fxc` y `fxc-scan`: [fazt/fxcode/skills](https://github.com/fazt/fxcode/tree/master/skills). Se instalan desde ahí con `skills/install.ps1` (Windows) o `skills/install.sh`, que las enlaza en `~/.claude/skills` y `~/.agents/skills`.
+
+Los instaladores de esta carpeta siguen configurando la status line.

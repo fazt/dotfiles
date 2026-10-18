@@ -9,10 +9,17 @@ DESTINATIONS=(
     "$HOME/.agents/skills"
 )
 
+# Las skills fx* viven ahora en el repo de FXCode (skills/install.sh).
+if [ ! -d "$SRC" ]; then
+    echo "Sin skills locales: las fx* se instalan desde fazt/fxcode con skills/install.sh"
+    DESTINATIONS=()
+fi
+
 for DEST in "${DESTINATIONS[@]}"; do
     mkdir -p "$DEST"
 
     for d in "$SRC"/*/; do
+        [ -d "$d" ] || continue
         name="$(basename "$d")"
         link="$DEST/$name"
         if [ -e "$link" ] || [ -L "$link" ]; then

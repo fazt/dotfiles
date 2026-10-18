@@ -26,6 +26,12 @@ function New-SkillLink {
     }
 }
 
+# Las skills fx* viven ahora en el repo de FXCode (skills/install.ps1).
+if (-not (Test-Path $src)) {
+    Write-Host "Sin skills locales: las fx* se instalan desde fazt/fxcode con skills\install.ps1" -ForegroundColor Yellow
+    $destinations = @()
+}
+
 foreach ($dest in $destinations) {
     if (-not (Test-Path $dest)) {
         New-Item -ItemType Directory -Path $dest -Force | Out-Null
