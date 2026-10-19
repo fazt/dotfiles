@@ -1,1 +1,1 @@
-{"rate_control":"CBR"}
+{"rate_control":"CQP","cqp":18,"preset2":"p5","profile":"high","lookahead":false,"psycho_aq":true,"bf":2}
