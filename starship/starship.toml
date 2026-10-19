@@ -1,0 +1,40 @@
+# Estilo robbyrussell de Oh My Zsh:  ➜  carpeta git:(rama) ✗
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+command_timeout = 500
+
+format = "$character$directory$git_branch$git_status$cmd_duration "
+
+[character]
+success_symbol = "[➜ ](bold green)"
+error_symbol = "[➜ ](bold red)"
+
+[directory]
+style = "bold cyan"
+truncation_length = 1
+truncate_to_repo = false
+format = "[$path]($style) "
+
+[git_branch]
+symbol = ""
+format = '[git:\(](bold blue)[$branch](bold red)[\)](bold blue) '
+
+[git_status]
+format = "[$all_status$ahead_behind]($style)"
+style = "bold yellow"
+conflicted = "✗"
+ahead = "✗"
+behind = "✗"
+diverged = "✗"
+untracked = "✗"
+modified = "✗"
+staged = "✗"
+renamed = "✗"
+deleted = "✗"
+stashed = ""
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "
+style = "yellow"

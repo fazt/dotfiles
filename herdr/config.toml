@@ -4,7 +4,7 @@ onboarding = false
 agent_panel_sort = "spaces"
 
 [terminal]
-default_shell = 'C:\Program Files\PowerShell\7\pwsh.exe'
+default_shell = 'pwsh.exe'
 
 [theme]
 name = "tokyo-night"

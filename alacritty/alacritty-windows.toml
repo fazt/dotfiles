@@ -1,7 +1,7 @@
 import = ["~\\AppData\\Roaming\\alacritty\\themes\\themes\\monokai_charcoal.toml"]
 
 [shell]
-program = "C:/Program Files/PowerShell/7/pwsh.exe"
+program = "pwsh.exe"
 args = ["-NoLogo"]
 
 [window]

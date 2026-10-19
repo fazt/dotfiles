@@ -4,11 +4,13 @@ local config = wezterm.config_builder()
 local is_windows = wezterm.target_triple:find("windows") ~= nil
 
 if is_windows then
-  config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }
+  config.default_prog = { "pwsh.exe", "-NoLogo" }
 end
 
-config.font = wezterm.font("JetBrainsMono Nerd Font")
-config.font_size = 12
+config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" })
+config.font_size = 13
+config.line_height = 1.25
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.color_scheme = "Tomorrow Night Bright"
 config.window_background_opacity = 0.99

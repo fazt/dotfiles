@@ -2,6 +2,17 @@
 
 Configuración personal de [WezTerm](https://wezfurlong.org/wezterm/).
 
+## Requisitos
+
+La fuente `JetBrainsMono Nerd Font` debe estar instalada; si no, WezTerm avisa
+"Unable to load a font specified by your font=..." y usa una fuente de respaldo.
+
+```powershell
+winget install --id DEVCOM.JetBrainsMonoNerdFont -e
+```
+
+Después de instalarla, reinicia WezTerm.
+
 ## Instalación
 
 En Windows, el archivo se carga desde `~/.wezterm.lua`. Yo uso un symlink:
@@ -28,7 +39,7 @@ Ventana inicial: `110 columnas × 30 filas`.
 
 ## Shell por defecto
 
-En Windows arranca **PowerShell 7** (`C:/Program Files/PowerShell/7/pwsh.exe -NoLogo`). En otros SOs usa el shell del sistema.
+En Windows arranca **PowerShell 7** (`pwsh.exe -NoLogo` (resuelto por PATH; funciona con la instalación MSIX de winget)). En otros SOs usa el shell del sistema.
 
 ## Status bar
 

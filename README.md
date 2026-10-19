@@ -171,5 +171,5 @@ bash install.sh
 ### Prerequisites
 
 - [Alacritty](https://alacritty.org/) or [WezTerm](https://wezfurlong.org/wezterm/)
-- [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) — install with `oh-my-posh font install JetBrainsMono`
+- [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads) — install with `winget install --id DEVCOM.JetBrainsMonoNerdFont -e` (Windows) or `oh-my-posh font install JetBrainsMono`
 - [Oh My Posh](https://ohmyposh.dev/) (optional, for prompt theme)
