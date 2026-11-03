@@ -1,0 +1,40 @@
+# Tema "plomo", a juego con el de herdr (dotfiles/herdr/config.toml, [theme.custom]).
+# lazygit no tiene temas con nombre: se dan los colores a mano. Por defecto usa
+# verde y azul saturados, que al lado del grafito de herdr cantan bastante.
+#
+# Los hex se toman de la misma paleta para que los dos paneles se vean del mismo
+# material. Se usa hex y no nombres ("green", "cyan") a proposito: los nombres
+# los resuelve el terminal y cambiarian con el tema de WezTerm.
+gui:
+  theme:
+    # Bordes: el del panel enfocado en acento claro, el resto apagado.
+    activeBorderColor: ["#a8a8a8", bold]
+    inactiveBorderColor: ["#5a5a5a"]
+    searchingActiveBorderColor: ["#82aaa5", bold]
+
+    optionsTextColor: ["#8a8a8a"]
+
+    # Fila seleccionada: fondo, no color de texto, para que se lea igual de bien
+    # sobre cualquier linea de diff.
+    selectedLineBgColor: ["#2a2a2a"]
+    inactiveViewSelectedLineBgColor: ["#1c1c1c"]
+
+    # Cambios sin preparar: el rojo apagado de "bloqueado" en herdr.
+    unstagedChangesColor: ["#b37a7a"]
+    defaultFgColor: ["#d0d0d0"]
+
+    cherryPickedCommitFgColor: ["#82aaa5"]
+    cherryPickedCommitBgColor: ["#1e1e1e"]
+    markedBaseCommitFgColor: ["#aaa07a"]
+    markedBaseCommitBgColor: ["#1e1e1e"]
+
+    # Color por tipo de rama. Con los agentes dejando ramas por todas partes,
+    # esto distingue el tipo de un vistazo sin leer el nombre entero, que en
+    # las de FXCode son 40 caracteres de identificador.
+    branchColorPatterns:
+      "^(main|master|dev)$": "#a8a8a8"   # las tuyas de verdad
+      "^feat/fxc-": "#7f90a8"            # tareas de FXCode
+      "^feat/": "#82aaa5"
+      "^fix/": "#aaa07a"
+      "^deploy/": "#b08c74"              # tocan produccion: color de aviso
+      "^worktree-agent-": "#5a5a5a"      # restos de agentes, apagadas
