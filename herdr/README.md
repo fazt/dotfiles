@@ -43,7 +43,16 @@ from the first keystroke, built on fzf:
 - One row per tab, searchable by tab name, workspace, agent title and cwd.
 - Status dot per row, matching the native sidebar indicator (`●` blocked/working/done, `○` idle, `·` unknown).
 - Colors are ANSI indices, never hardcoded hex, so they follow whichever herdr theme is active.
-- Picking a row focuses that workspace and tab through the herdr socket API.
+- Picking a row runs `herdr tab focus`, which also switches workspace when needed.
+- fzf and the snapshot start in parallel, so the picker is on screen while herdr answers.
+- Sessions on saved SSH machines (`herdr machine list`, e.g. the Raspberry Pi) are listed
+  too, prefixed with the machine label. They arrive ~1 s later over SSH and are appended
+  without holding up the local rows; an unreachable machine shows a dimmed "sin conexión" row.
+- Picking a remote row **cannot jump there**: switching machines is a client-side action
+  (sidebar click or `prefix+w`) that neither the API nor the CLI exposes, and
+  `--machine … tab focus` only moves focus inside that server. It shows a notification
+  saying where the session lives instead. (`%LOCALAPPDATA%\herdr\client\endpoint-selection.json`
+  looks like a selector but is persistence only: the running client ignores edits to it.)
 
 Inspect the rows without opening fzf:
 
