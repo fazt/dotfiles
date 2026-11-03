@@ -2,7 +2,37 @@
 
 Config for [herdr](https://herdr.dev), the terminal workspace manager for AI coding agents.
 
-Theme `tokyo-night`, PowerShell 7 as the default shell, and a session picker on `Ctrl+P`.
+Theme `plomo` (a monochrome graphite built on `vesper`), PowerShell 7 as the default shell,
+a session picker on `Ctrl+P`, and shortcuts for nvim, lazygit and a side file explorer.
+
+## Shortcuts
+
+| Key | Does |
+| --- | --- |
+| `Ctrl+P` | session picker (see below) |
+| `prefix+g` | herdr's native navigator |
+| `prefix+Shift+E` | nvim in the focused pane's directory |
+| `prefix+Shift+L` | lazygit in the focused pane's directory |
+| `prefix+Shift+F` | file explorer (yazi) in a pane on the right |
+| `prefix+Shift+G` / `prefix+Alt+G` / `prefix+Alt+D` | new / open / remove worktree |
+
+## Side file explorer (`prefix+Shift+F`)
+
+One per tab, and the same key closes it — `scripts/side-files.mjs` tags the pane it creates
+with `pane rename` and closes every tagged pane in the tab before opening a new one, so
+pressing the key from inside the explorer closes it instead of spawning a second.
+
+It needs a script because `[[keys.command]]` with `type = "pane"` ignores `direction` and
+`ratio` (the validator says `unknown config key`), so there is no way to ask for a pane on
+the right from the config alone. The binding is `type = "shell"` and the script does the
+`pane split --direction right --ratio 0.5` itself.
+
+`yazi-side/yazi.toml` is passed as `YAZI_CONFIG_HOME` so the side pane runs two columns
+(`[mgr] ratio = [0, 1, 1]`, no parent column) while a full-screen `yazi` keeps its three.
+Override with `HERDR_SIDE_RATIO`, `HERDR_SIDE_CMD` or `HERDR_SIDE_YAZI_CONFIG`.
+
+Detection goes by the pane `label` that `pane rename` sets, not the terminal title: the
+title is overwritten by whatever runs inside the pane.
 
 ## Ctrl+P session picker
 

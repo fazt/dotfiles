@@ -1,0 +1,9 @@
+# Config propia del explorador lateral de herdr, separada de la de yazi global:
+# se pasa por YAZI_CONFIG_HOME, asi que un `yazi` a pantalla completa sigue
+# usando sus tres columnas normales.
+#
+# ratio = [padre, actual, vista previa]. Un 0 oculta esa columna: en un pane
+# estrecho la de padre solo roba sitio, y la vista previa es lo util al lado
+# del codigo.
+[mgr]
+ratio = [0, 1, 1]

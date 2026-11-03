@@ -1,18 +1,62 @@
 onboarding = false
 
 [ui]
-agent_panel_sort = "spaces"
+# "priority" = cola de atencion: ordena por estado en vez de agrupar por espacio,
+# asi lo que necesita algo de ti sube al principio. Para volver atras: "spaces".
+agent_panel_sort = "priority"
+
+# Con el tema plomo los cinco colores de estado son grises casi iguales, asi que
+# los puntos de color no se distinguen. "symbols" usa un glifo distinto para
+# bloqueado, trabajando, terminado, inactivo y desconocido.
+status_indicators = "symbols"
 
 [terminal]
 default_shell = 'pwsh.exe'
 
 [theme]
-name = "tokyo-night"
+# Tema "plomo": herdr solo admite temas integrados, asi que se parte de
+# vesper (el monocromo) y se sobrescriben los 19 tokens abajo.
+# Para volver al anterior: name = "catppuccin" y borra [theme.custom].
+name = "vesper"
 auto_switch = false
+
+# --- plomo: grafito casi negro, sin colores saturados ---
+[theme.custom]
+# Fondos
+sidebar_bg    = "#000000" # igual al fondo de los panes (WezTerm, Tomorrow Night Bright)
+panel_bg      = "#161616" # barra de pestañas, popups, modales, toasts
+active_row_bg = "#1c1c1c" # espacio activo / agente enfocado
+surface0      = "#1e1e1e" # superficies sutiles (avisos, vista movil)
+selection_bg  = "#2a2a2a" # fila del cursor en modo Navigate
+# Bordes y separadores
+surface_dim   = "#2e2e2e" # separador del sidebar, divisores, pista de scrollbar
+surface1      = "#3a3a3a" # bordes de modales, fila arrastrada
+# Texto
+overlay0      = "#5a5a5a" # borde/titulo de panel sin foco + nombres de agente/pestaña/rama + estado desconocido (3:1 sobre negro; mas oscuro deja ilegibles esos nombres)
+overlay1      = "#8a8a8a" # texto secundario un poco mas claro, thumb de scrollbar
+subtext0      = "#a0a0a0" # etiquetas atenuadas
+text          = "#d0d0d0" # texto principal (12.7:1 sobre el fondo)
+# Acento / foco
+accent        = "#a8a8a8" # borde del panel enfocado, resaltados, insignia PREFIX
+mauve         = "#8c8c8c" # nombre de rama enfocada, insignia RESIZE
+# Estados de agente (apagados, distinguibles por tono)
+yellow        = "#aaa07a" # trabajando
+red           = "#b37a7a" # bloqueado / necesita atencion
+teal          = "#82aaa5" # terminado
+green         = "#7c9480" # inactivo
+blue          = "#7f90a8" # notificacion de terminado
+peach         = "#b08c74" # interrumpido / aviso
 
 [keys]
 # El navegador nativo se queda donde estaba.
 goto = "prefix+g"
+
+# Worktrees: varias ramas del mismo repo abiertas a la vez, cada una como su
+# propio espacio en el sidebar. new_worktree ya venia por defecto; open y
+# remove venian sin asignar, asi que se activan aqui.
+new_worktree = "prefix+shift+g"    # crear rama nueva y abrirla como espacio
+open_worktree = "prefix+alt+g"     # abrir un worktree que ya existe
+remove_worktree = "prefix+alt+d"   # quitar el checkout (pide confirmacion)
 
 # Selector propio que abre ya filtrando, sin tener que pulsar "/".
 # El comando pasa por cmd.exe, que expande %APPDATA%.
@@ -23,3 +67,39 @@ description = "Ir a sesion"
 command = 'node "%APPDATA%\herdr\scripts\goto.mjs"'
 width = "70%"
 height = "50%"
+
+# nvim en la carpeta del pane enfocado. "pane" abre un pane temporal que se
+# cierra al salir de nvim. herdr pasa la carpeta en HERDR_ACTIVE_PANE_CWD.
+[[keys.command]]
+key = "prefix+shift+e"
+type = "pane"
+description = "nvim en el proyecto"
+command = 'cd /d "%HERDR_ACTIVE_PANE_CWD%" && nvim .'
+
+# lazygit y yazi en la carpeta del pane enfocado, igual que nvim arriba:
+# "pane" abre un pane temporal que se cierra al salir del programa, asi que
+# sirven para mirar y volver sin dejar nada abierto. Mismo mnemonico que la E
+# de editor: L de lazygit, F de files.
+#
+# Se usa la ruta completa a proposito. El servidor de herdr lleva corriendo
+# desde antes de instalarlas, asi que su PATH no las incluye todavia y un
+# "lazygit" pelado no se encontraria. Tras reiniciar herdr se puede acortar.
+[[keys.command]]
+key = "prefix+shift+l"
+type = "pane"
+description = "lazygit en el proyecto"
+command = 'cd /d "%HERDR_ACTIVE_PANE_CWD%" && "%LOCALAPPDATA%\Microsoft\WinGet\Packages\JesseDuffield.lazygit_Microsoft.Winget.Source_8wekyb3d8bbwe\lazygit.exe"'
+
+# El explorador va como pane LATERAL, no como pane temporal: con type = "pane"
+# herdr ignora direction y ratio, asi que el split lo hace el script. Tambien
+# actua como interruptor: la misma tecla lo abre y lo cierra.
+[[keys.command]]
+key = "prefix+shift+f"
+type = "shell"
+description = "Explorador de archivos a la derecha"
+command = 'node "%APPDATA%\herdr\scripts\side-files.mjs"'
+
+[worktrees]
+# Donde se crean los checkouts de las ramas. Por defecto ~/.herdr/worktrees;
+# se deja explicito para saber donde buscarlos.
+directory = "~/.herdr/worktrees"
