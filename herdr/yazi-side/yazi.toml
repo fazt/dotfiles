@@ -7,3 +7,29 @@
 # del codigo.
 [mgr]
 ratio = [0, 1, 1]
+
+# Enter abre con nvim, no con lo que tenga asociado Windows (VS Code). Estando
+# en un pane de herdr tiene mas sentido quedarse en la terminal: VS Code saca
+# el foco a otra ventana y rompe el flujo.
+#
+# block = true hace que nvim tome el pane entero mientras edita; al salir, yazi
+# vuelve. Se invoca por nombre: el PATH del pane resuelve nvim (v0.12.6).
+#
+# El marcador del archivo es "%s". Ni %* ni $@ ni %0 ni %@ se sustituyen en
+# yazi 26.9.1 en Windows: llegan literales y nvim abre un buffer con ese
+# nombre. Sin marcador, nvim abre vacio. Comprobado uno por uno.
+[opener]
+edit = [
+  { run = 'nvim "%s"', desc = "nvim", block = true, for = "windows" },
+]
+
+# prepend_rules se evalua antes que las reglas por defecto, que en Windows
+# mandan todo al programa asociado del sistema.
+[open]
+prepend_rules = [
+  { mime = "text/*", use = "edit" },
+  { mime = "application/json", use = "edit" },
+  { mime = "application/javascript", use = "edit" },
+  { mime = "application/x-yaml", use = "edit" },
+  { mime = "inode/x-empty", use = "edit" },
+]

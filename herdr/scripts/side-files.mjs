@@ -29,6 +29,12 @@ const HERDR = process.env.HERDR_BIN || 'herdr';
 const YAZI_CFG = process.env.HERDR_SIDE_YAZI_CONFIG
   || `${process.env.APPDATA}/herdr/yazi-side`;
 
+// yazi necesita el comando `file` para saber el tipo MIME y elegir previsualizador.
+// En Windows no lo busca en el PATH: hay que senalarlo con YAZI_FILE_ONE, y sin
+// el la columna de vista previa sale vacia con "Cannot find `file`". Git lo trae.
+const FILE_ONE = process.env.YAZI_FILE_ONE
+  || `${process.env.ProgramFiles}/Git/usr/bin/file.exe`;
+
 function herdr(...args) {
   const out = execFileSync(HERDR, args, { encoding: 'utf8', windowsHide: true });
   return out.trim() ? JSON.parse(out) : null;
@@ -62,7 +68,10 @@ const cwd = process.env.HERDR_ACTIVE_PANE_CWD || base.cwd || process.cwd();
 const res = herdr(
   'pane', 'split', '--pane', base.pane_id,
   '--direction', 'right', '--ratio', RATIO,
-  '--cwd', cwd, '--env', `YAZI_CONFIG_HOME=${YAZI_CFG}`, '--focus',
+  '--cwd', cwd,
+  '--env', `YAZI_CONFIG_HOME=${YAZI_CFG}`,
+  '--env', `YAZI_FILE_ONE=${FILE_ONE}`,
+  '--focus',
 );
 const paneId = res?.result?.pane?.pane_id;
 if (!paneId) {
