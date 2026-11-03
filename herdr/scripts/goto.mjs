@@ -1,6 +1,7 @@
 // Selector de sesiones que abre ya filtrando, sin tener que pulsar "/".
 // Un solo snapshot de la API: el popup arranca en frio y cada proceso extra se nota.
 import { execFileSync, spawnSync } from "node:child_process";
+import { homedir } from "node:os";
 
 const snap = JSON.parse(execFileSync("herdr", ["api", "snapshot"], { encoding: "utf8" })).result.snapshot;
 const labels = new Map(snap.workspaces.map((w) => [w.workspace_id, w.label]));
@@ -26,6 +27,8 @@ const MARK = {
 const UNKNOWN = [C.dim, "·"];
 
 const SEP = /[\\/]/;
+// homedir() en vez de USERPROFILE: esa variable solo existe en Windows.
+const home = homedir();
 const pad = (s, n) => (s.length >= n ? s.slice(0, n - 1) + "…" : s + " ".repeat(n - s.length));
 
 // Un panel sin agente reporta la ruta del ejecutable; ahi solo interesa el nombre.
@@ -43,7 +46,6 @@ const rows = snap.tabs.map((t) => {
   const pane = first.get(t.tab_id);
   const title = pane ? short(pane.terminal_title_stripped || pane.agent || "") : "";
   const extra = title && title.toLowerCase() !== t.label.toLowerCase() ? title : "";
-  const home = process.env.USERPROFILE ?? "";
   const cwd = (pane?.cwd ?? "").replace(home, "~");
   const tail = [extra, cwd].filter(Boolean).join("  ");
   return `${t.tab_id}\t${color}${glyph}${C.off}  ${C.gray}${pad(ws, 13)}${C.off} ${pad(t.label, 24)} ${C.dim}${tail}${C.off}`;
