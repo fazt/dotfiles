@@ -32,4 +32,8 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Ventana arriba" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Ventana derecha" })
 
 -- Cargar plugins
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  -- luarocks/hererocks falla en Windows y mete a lazy en un bucle de
+  -- "missing plugins"; ni image.nvim (usa magick_cli) ni oxocarbon lo necesitan
+  rocks = { enabled = false },
+})

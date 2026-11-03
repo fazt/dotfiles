@@ -1,6 +1,16 @@
 return {
   "3rd/image.nvim",
   event = "VeryLazy",
+  -- Solo en Unix. En Windows el backend sixel consulta el tamano del terminal
+  -- con una llamada que ahi no existe, asi que al cargarse suelta
+  -- "image.nvim: unsupported OS - cannot query terminal size" y deja a nvim
+  -- esperando un Enter en cada arranque. En el Pi y en i3 funciona igual.
+  --
+  -- cond y no enabled: asi sigue instalado y lazy no lo marca para limpieza
+  -- cuando se abre el mismo dotfiles desde Linux.
+  cond = function()
+    return vim.fn.has("win32") == 0
+  end,
   opts = {
     backend = "sixel",        -- WezTerm soporta sixel; "kitty" no es confiable en WezTerm
     processor = "magick_cli", -- usa el CLI de ImageMagick (no requiere luarocks)
