@@ -2,6 +2,7 @@
 // Claude Code statusline — zash Oh My Posh theme style
 //
 // Line 1 (zash-style):  account email  ➜  path  git(branch ✗)  [vim mode]
+//                       ⇅remote when Remote Control is active
 //                       (falls back to @user when the account can't be read)
 // Line 2 (claude info): Model | ctx bar N%/size
 // Line 3 (5h quota):            | 5h  bar N% + reset time   (omitted if absent)
@@ -10,7 +11,7 @@
 // The three bars mean the same thing: filled = consumed, N% = consumed, and
 // color goes green (<60%), orange (>=60%), red (>=80%).
 
-const { spawnSync } = require('child_process');
+const { spawnSync, spawn } = require('child_process');
 const fs   = require('fs');
 const os   = require('os');
 const path = require('path');
@@ -69,6 +70,62 @@ function accountEmail() {
   }
 }
 
+// ¿Esta sesion esta bajo Remote Control (gobernable desde claude.ai o la app
+// movil)? Claude Code NO lo manda por stdin: el payload de la statusline trae
+// session_id, model, context_window, rate_limits y poco mas. Pero el registro
+// local de sesiones si lo sabe: cuando el puente se activa, Claude Code
+// escribe bridgeSessionId en ~/.claude/sessions/<pid>.json, y lo pone en null
+// al soltarlo.
+//
+// El nombre del archivo es el PID de Claude Code, que esta statusline no
+// conoce (process.ppid es el proceso intermedio que la lanza, no claude), asi
+// que hay que emparejar por sessionId. Para no releer el directorio en cada
+// repintado -cada 3 s- se cachea en disco el archivo que resolvio la ultima
+// vez y se reintenta ese primero; solo si deja de coincidir se vuelve a
+// escanear. Devuelve false ante cualquier duda.
+const SESSION_CACHE_VERSION = 1;
+
+function readRecord(file) {
+  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch (_) { return null; }
+}
+
+function isRemoteControlled(sessionId) {
+  if (typeof sessionId !== 'string' || !sessionId) return false;
+  const bridged = rec =>
+    !!rec && rec.sessionId === sessionId && typeof rec.bridgeSessionId === 'string'
+    && rec.bridgeSessionId.length > 0;
+  try {
+    const base = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
+    const dir  = path.join(base, 'sessions');
+    const cachePath = path.join(os.tmpdir(), `claude-statusline-session-${sessionId}.json`);
+
+    let cached = null;
+    try { cached = JSON.parse(fs.readFileSync(cachePath, 'utf8')); } catch (_) {}
+    if (cached && cached.v === SESSION_CACHE_VERSION && typeof cached.file === 'string') {
+      const rec = readRecord(cached.file);
+      if (rec && rec.sessionId === sessionId) return bridged(rec);
+    }
+
+    for (const name of fs.readdirSync(dir)) {
+      if (!name.endsWith('.json')) continue;
+      const file = path.join(dir, name);
+      const rec  = readRecord(file);
+      if (rec && rec.sessionId === sessionId) {
+        try {
+          fs.writeFileSync(cachePath, JSON.stringify({ v: SESSION_CACHE_VERSION, file }));
+        } catch (_) {}
+        return bridged(rec);
+      }
+    }
+  } catch (_) {}
+  return false;
+}
+
+// Seguro contra procesos huerfanos: si Claude Code aborta el repintado y la
+// entrada nunca llega a cerrarse, este node se quedaba esperando para siempre
+// (se encontraron 300, algunos de hace un dia). Pintar tarda milisegundos.
+setTimeout(() => process.exit(0), 10000).unref();
+
 const chunks = [];
 process.stdin.on('data', d => chunks.push(d));
 process.stdin.on('end', () => {
@@ -91,6 +148,7 @@ process.stdin.on('end', () => {
   const LGREEN  = '\x1b[38;2;98;237;139m';    // ctx ok
   const ORANGE  = '\x1b[38;2;230;170;90m';    // ctx warn
   const CRED    = '\x1b[38;2;235;110;110m';   // ctx danger
+  const BLUE    = '\x1b[38;2;110;160;255m';   // #6EA0FF  Remote Control
 
   // ── Data extraction ───────────────────────────────────────────────────────
   const userName  = process.env.USERNAME || process.env.USER || 'user';
@@ -142,6 +200,69 @@ process.stdin.on('end', () => {
   }
   const wtName = data?.workspace?.git_worktree ?? data?.worktree?.name ?? null;
 
+  // ── Worktrees y ramas olvidadas ───────────────────────────────────────────
+  // Los agentes dejan worktrees y ramas sin subir en cada repo que tocan, y es
+  // facil olvidar que estan ahi. Dos recuentos, con costes muy distintos:
+  //
+  //   repo actual  una llamada a `git worktree list`, barata, siempre al dia.
+  //   global       lo calcula scripts/git-sweep recorriendo todos los repos,
+  //                demasiado lento para una statusline que se repinta cada 3 s,
+  //                asi que aqui solo se LEE su cache y, si vencio, se lanza el
+  //                barrido en segundo plano (detached) para la proxima vez.
+  //
+  // Nunca bloquea: si no hay cache todavia, el indicador global no se pinta.
+  const SWEEP_TTL_MS  = 10 * 60 * 1000;
+  const SWEEP_LOCK_MS = 15 * 60 * 1000;   // > SWEEP_MAX_S: nunca hay dos barridos a la vez
+  const SWEEP_MAX_S   = 600;
+
+  function sweepGlobal() {
+    const cache = path.join(os.tmpdir(), 'claude-statusline-sweep.json');
+    let out = null;
+    let fresh = false;
+    try {
+      const st = fs.statSync(cache);
+      out = JSON.parse(fs.readFileSync(cache, 'utf8'));
+      fresh = (Date.now() - st.mtimeMs) < SWEEP_TTL_MS;
+    } catch { /* sin cache o ilegible: se refresca abajo */ }
+    if (fresh) return out;
+    // Candado: con refreshInterval=3 este script corre cada 3 s y un barrido tarda
+    // minutos en Windows, asi que sin candado se lanzaba uno nuevo en cada repintado
+    // mientras la cache seguia vencida (llegaron a ser cientos de bash/git/node vivos
+    // y el PC iba lento). Un barrido a la vez, y si falla no se reintenta enseguida.
+    const lock = path.join(os.tmpdir(), 'claude-statusline-sweep.lock');
+    try {
+      if (Date.now() - fs.statSync(lock).mtimeMs < SWEEP_LOCK_MS) return out;
+    } catch { /* sin candado: se puede lanzar */ }
+    try { fs.writeFileSync(lock, String(process.pid)); } catch { return out; }
+    try {
+      const script = path.join(os.homedir(), 'dotfiles', 'scripts', 'git-sweep');
+      if (fs.existsSync(script)) {
+        // escribe a .tmp y renombra, para que un repintado no lea un JSON a medias;
+        // `timeout` mata un barrido colgado (un git atascado lo dejaba vivo horas)
+        const child = spawn(
+          'bash',
+          ['-c', `timeout ${SWEEP_MAX_S} "${script}" --json > "${cache}.tmp" 2>/dev/null && mv -f "${cache}.tmp" "${cache}"`],
+          { detached: true, stdio: 'ignore', windowsHide: true },
+        );
+        child.unref();
+      }
+    } catch { /* sin bash: el indicador global se queda sin pintar */ }
+    return out;   // cache vencida, pero mejor un dato viejo que ninguno
+  }
+
+  let wtCount = 0;
+  if (branch) {
+    const wl = git(['worktree', 'list']);
+    if (wl) {
+      const LF = String.fromCharCode(10);
+      const rows = wl.split(LF).filter((x) => x.trim().length > 0);
+      wtCount = Math.max(0, rows.length - 1);   // la primera es el repo principal
+    }
+  }
+  const sweep = branch ? sweepGlobal() : null;
+  const unpushed = sweep?.unpushed ?? 0;
+  const globalWt = sweep?.worktrees ?? 0;
+
   // ── Line 1: zash-style prompt ─────────────────────────────────────────────
   // Identidad al inicio de la linea: el correo de la cuenta con la sesion
   // iniciada, coloreado por cuenta para distinguirla de un vistazo (dominio
@@ -163,7 +284,11 @@ process.stdin.on('end', () => {
   if (branch) {
     const mark = dirty ? ` ${YELLOW}✗${RESET}` : '';
     const wt   = wtName ? `${DIM}:${wtName}${RESET}` : '';
-    gitPart = ` ${GOLD}git(${RESET}${PURPLE}${branch}${RESET}${wt}${mark}${GOLD})${RESET}`;
+    // ⑂N  worktrees de este repo (N>0);  !N  ramas sin copia en ningun remoto,
+    // contando todos los repos: es lo unico irrecuperable si se pierde el disco.
+    const wtN  = wtCount > 0 ? ` ${DIM}⑂${wtCount}${RESET}` : '';
+    const warn = unpushed > 0 ? ` ${RED}!${unpushed}${RESET}` : '';
+    gitPart = ` ${GOLD}git(${RESET}${PURPLE}${branch}${RESET}${wt}${mark}${wtN}${warn}${GOLD})${RESET}`;
   }
 
   let statusPart = '';
@@ -178,7 +303,12 @@ process.stdin.on('end', () => {
     statusPart = ` ${mc}[${vimMode}]${RESET}`;
   }
 
-  const line1 = `${userPart} ${arrow} ${dirPart}${gitPart}${statusPart}`;
+  // Distintivo de Remote Control: si el puente esta activo, esta sesion se puede
+  // manejar desde claude.ai o el movil, y conviene verlo sin abrir /config. Se
+  // pinta un texto fijo, nunca el bridgeSessionId.
+  const rcPart = isRemoteControlled(data?.session_id) ? ` ${BLUE}⇅remote${RESET}` : '';
+
+  const line1 = `${userPart} ${arrow} ${dirPart}${gitPart}${statusPart}${rcPart}`;
 
   // ── Line 2: Claude info ───────────────────────────────────────────────────
   const sep = ` ${DIM}|${RESET} `;

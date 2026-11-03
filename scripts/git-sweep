@@ -1,0 +1,101 @@
+#!/bin/bash
+# Find forgotten git worktrees and unmerged branches across all project dirs
+#
+# Agents (Claude Code, Codex...) leave worktrees and branches behind in every
+# repo they touch; lazygit only shows one repo at a time, so this sweeps them
+# all and prints just the repos that still have something pending.
+#
+# Usage: git-sweep [--json] [--prunable] [root ...]
+#   --json      machine-readable, for the Claude Code statusline
+#   --prunable  only list worktrees whose directory is already gone
+#
+# Roots default to $GIT_SWEEP_ROOTS (colon-separated) or the usual suspects.
+
+json=0
+prunable_only=0
+roots=()
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --json)     json=1 ;;
+    --prunable) prunable_only=1 ;;
+    -h|--help)  sed -n '2,12p' "$0" | sed 's/^# \?//'; exit 0 ;;
+    *)          roots+=("$1") ;;
+  esac
+  shift
+done
+
+if [ ${#roots[@]} -eq 0 ]; then
+  if [ -n "$GIT_SWEEP_ROOTS" ]; then
+    IFS=':' read -ra roots <<< "$GIT_SWEEP_ROOTS"
+  else
+    roots=("$HOME/Documents/projects" "$HOME/projects" "$HOME/code" "/d/Projects")
+  fi
+fi
+
+total_wt=0 total_prunable=0 total_unmerged=0 total_unpushed=0 repos=0
+rows=""
+
+for root in "${roots[@]}"; do
+  [ -d "$root" ] || continue
+  for dir in "$root"/*/; do
+    repo="${dir%/}"
+    name="$(basename "$repo")"
+    # .git is a dir in a normal clone, a file inside a worktree
+    [ -e "$repo/.git" ] || continue
+
+    wt_raw="$(git -C "$repo" worktree list 2>/dev/null | tail -n +2)"
+    n_wt=$(printf '%s' "$wt_raw" | grep -c . )
+    n_prunable=$(printf '%s' "$wt_raw" | grep -c prunable)
+
+    # main or master, whichever this repo uses
+    base=master
+    git -C "$repo" rev-parse --verify --quiet main >/dev/null 2>&1 && base=main
+
+    # Una sola pasada por las ramas. for-each-ref da nombre y upstream de golpe;
+    # el bucle anterior lanzaba dos `git` por rama y en Windows el coste de
+    # arrancar el proceso hacia que un barrido completo pasara de dos minutos.
+    unmerged_list="$(git -C "$repo" branch --no-merged "$base" 2>/dev/null | sed 's/^[* ]*//')"
+    n_unmerged=$(printf '%s' "$unmerged_list" | grep -c .)
+
+    # Sin upstream y sin fusionar en la base = su unica copia es este disco.
+    n_unpushed=0
+    while IFS='|' read -r br up; do
+      [ -n "$br" ] || continue
+      [ "$br" = "$base" ] && continue
+      [ -n "$up" ] && continue
+      printf '%s
+' "$unmerged_list" | grep -qxF "$br" && n_unpushed=$((n_unpushed + 1))
+    done <<< "$(git -C "$repo" for-each-ref --format='%(refname:short)|%(upstream:short)' refs/heads 2>/dev/null)"
+
+    if [ "$prunable_only" -eq 1 ]; then
+      [ "$n_prunable" -gt 0 ] || continue
+    else
+      [ "$n_wt" -gt 0 ] || [ "$n_unmerged" -gt 0 ] || continue
+    fi
+
+    repos=$((repos + 1))
+    total_wt=$((total_wt + n_wt))
+    total_prunable=$((total_prunable + n_prunable))
+    total_unmerged=$((total_unmerged + n_unmerged))
+    total_unpushed=$((total_unpushed + n_unpushed))
+
+    if [ "$json" -eq 1 ]; then
+      rows="$rows{\"repo\":\"$name\",\"path\":\"$repo\",\"worktrees\":$n_wt,\"prunable\":$n_prunable,\"unmerged\":$n_unmerged,\"unpushed\":$n_unpushed},"
+    else
+      dirty=$(git -C "$repo" status --porcelain 2>/dev/null | grep -c .)
+      printf '%-26s wt=%-3s huerfanos=%-3s sin-fusionar=%-3s sin-remoto=%-3s sucio=%s\n' \
+        "$name" "$n_wt" "$n_prunable" "$n_unmerged" "$n_unpushed" "$dirty"
+      [ -n "$wt_raw" ] && printf '%s\n' "$wt_raw" | sed 's/^/    /'
+    fi
+  done
+done
+
+if [ "$json" -eq 1 ]; then
+  printf '{"repos":%d,"worktrees":%d,"prunable":%d,"unmerged":%d,"unpushed":%d,"detail":[%s]}\n' \
+    "$repos" "$total_wt" "$total_prunable" "$total_unmerged" "$total_unpushed" "${rows%,}"
+else
+  echo
+  echo "$repos repos con pendientes: $total_wt worktrees ($total_prunable huerfanos), $total_unmerged ramas sin fusionar, $total_unpushed sin remoto"
+  [ "$total_prunable" -gt 0 ] && echo "limpiar huerfanos: git-sweep --prunable  y luego  git -C <repo> worktree prune"
+fi

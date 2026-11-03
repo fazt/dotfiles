@@ -32,7 +32,8 @@ if (fs.existsSync(settingsPath)) {
 
 // refreshInterval re-corre el script por temporizador ademas de los eventos.
 // Sin esto la ruta se queda vieja tras un `/cd`, porque cambiar de directorio
-// no es uno de los eventos que redibujan la status line.
-settings.statusLine = { type: 'command', command, refreshInterval: 3 };
+// no es uno de los eventos que redibujan la status line. 15 s y no 3: cada
+// ejecucion cuesta ~1 s en Windows (node + varios git) y con 3 s se notaba.
+settings.statusLine = { type: 'command', command, refreshInterval: 15 };
 fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
 console.log(`statusLine -> ${command}`);
