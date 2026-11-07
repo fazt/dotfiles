@@ -2,6 +2,14 @@
 // Un solo snapshot de la API: el popup arranca en frio y cada proceso extra se nota.
 import { execFileSync, spawnSync } from "node:child_process";
 import { homedir } from "node:os";
+import { delimiter, join } from "node:path";
+
+// El popup hereda el PATH del servidor de herdr, que en Linux puede arrancar
+// sin ~/.local/bin (donde suelen vivir herdr y fzf) y el script moria al instante.
+if (process.platform !== "win32") {
+  const extra = [".local/bin", ".local/share/mise/shims", ".cargo/bin"].map((d) => join(homedir(), d));
+  process.env.PATH = [...extra, process.env.PATH].join(delimiter);
+}
 
 const snap = JSON.parse(execFileSync("herdr", ["api", "snapshot"], { encoding: "utf8" })).result.snapshot;
 const labels = new Map(snap.workspaces.map((w) => [w.workspace_id, w.label]));
