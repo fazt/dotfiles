@@ -68,13 +68,14 @@ command = 'node "%APPDATA%\herdr\scripts\goto.mjs"'
 width = "70%"
 height = "50%"
 
-# nvim en la carpeta del pane enfocado. "pane" abre un pane temporal que se
-# cierra al salir de nvim. herdr pasa la carpeta en HERDR_ACTIVE_PANE_CWD.
+# nvim en la carpeta del pane enfocado o, si es un pane de Claude, en la del
+# proyecto que esta editando (ver el script). "pane" abre un pane temporal que
+# se cierra al salir de nvim.
 [[keys.command]]
 key = "prefix+shift+e"
 type = "pane"
 description = "nvim en el proyecto"
-command = 'cd /d "%HERDR_ACTIVE_PANE_CWD%" && nvim .'
+command = 'node "%APPDATA%\herdr\scripts\nvim-here.mjs"'
 
 # lazygit y yazi en la carpeta del pane enfocado, igual que nvim arriba:
 # "pane" abre un pane temporal que se cierra al salir del programa, asi que

@@ -11,7 +11,7 @@ a session picker on `Ctrl+P`, and shortcuts for nvim, lazygit and a side file ex
 | --- | --- |
 | `Ctrl+P` | session picker (see below) |
 | `prefix+g` | herdr's native navigator |
-| `prefix+Shift+E` | nvim in the focused pane's directory |
+| `prefix+Shift+E` | nvim in the focused pane's directory; in a Claude pane, in the project of the last file it edited (`scripts/nvim-here.mjs`) |
 | `prefix+Shift+L` | lazygit in the focused pane's directory |
 | `prefix+Shift+F` | file explorer (yazi) in a pane on the right |
 | `prefix+Shift+G` / `prefix+Alt+G` / `prefix+Alt+D` | new / open / remove worktree |
