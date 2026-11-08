@@ -53,7 +53,7 @@ cd dotfiles/wezterm
 ## herdr
 
 Terminal workspace manager for AI coding agents. Theme `tokyo-night`, PowerShell 7 as default
-shell, and a `Ctrl+P` session picker that filters from the first keystroke (the native navigator
+shell on Windows (zsh on Linux/macOS), and a `Ctrl+P` session picker that filters from the first keystroke (the native navigator
 makes you press `/` first). Needs node and fzf on PATH. See [herdr/README.md](herdr/) for details.
 
 ### Install
@@ -63,6 +63,13 @@ makes you press `/` first). Needs node and fzf on PATH. See [herdr/README.md](he
 ```powershell
 cd dotfiles/herdr
 .\install.ps1
+```
+
+**Linux/macOS:**
+
+```bash
+cd dotfiles/herdr
+bash install.sh
 ```
 
 ## Neovim

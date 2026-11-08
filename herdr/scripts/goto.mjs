@@ -1,6 +1,15 @@
 // Selector de sesiones que abre ya filtrando, sin tener que pulsar "/".
 // Un solo snapshot de la API: el popup arranca en frio y cada proceso extra se nota.
 import { execFile, execFileSync, spawn } from "node:child_process";
+import { homedir } from "node:os";
+import { delimiter, join } from "node:path";
+
+// El popup hereda el PATH del servidor de herdr, que en Linux puede arrancar
+// sin ~/.local/bin (donde suelen vivir herdr y fzf) y el script moria al instante.
+if (process.platform !== "win32") {
+  const extra = [".local/bin", ".local/share/mise/shims", ".cargo/bin"].map((d) => join(homedir(), d));
+  process.env.PATH = [...extra, process.env.PATH].join(delimiter);
+}
 
 // Colores por indice ANSI, no por hex: asi los resuelve el tema activo de herdr
 // y el popup sigue cuadrando si algun dia cambias de tema.
@@ -23,6 +32,8 @@ const MARK = {
 const UNKNOWN = [C.dim, "·"];
 
 const SEP = /[\\/]/;
+// homedir() en vez de USERPROFILE: esa variable solo existe en Windows.
+const home = homedir();
 const pad = (s, n) => (s.length >= n ? s.slice(0, n - 1) + "…" : s + " ".repeat(n - s.length));
 
 // Un panel sin agente reporta la ruta del ejecutable; ahi solo interesa el nombre.
@@ -47,7 +58,7 @@ function rowsFrom(json, machine) {
   const prefix = machine ? `m:${machine.id}:` : "";
   const tilde = machine
     ? (s) => s.replace(/^\/home\/[^/]+|^\/root/, "~")
-    : (s) => s.replace(process.env.USERPROFILE ?? "", "~");
+    : (s) => s.replace(home, "~");
 
   // El tab_id viaja en la primera columna y fzf la oculta con --with-nth 2.
   return snap.tabs.map((t) => {

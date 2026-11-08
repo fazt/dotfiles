@@ -2,8 +2,13 @@
 
 Config for [herdr](https://herdr.dev), the terminal workspace manager for AI coding agents.
 
-Theme `plomo` (a monochrome graphite built on `vesper`), PowerShell 7 as the default shell,
-a session picker on `Ctrl+P`, and shortcuts for nvim, lazygit and a side file explorer.
+Theme `plomo` (a monochrome graphite built on `vesper`), PowerShell 7 as the default shell on
+Windows (zsh on Linux/macOS), a session picker on `Ctrl+P`, and shortcuts for nvim, lazygit and a
+side file explorer.
+
+`config.toml` is the Windows version. On Linux/macOS, `install.sh` generates the local one from it:
+it swaps the shell, points every script at `~/.config/herdr/scripts` and runs `lazygit` from the
+`PATH`, so there is a single copy to maintain.
 
 ## Shortcuts
 
@@ -60,6 +65,10 @@ Inspect the rows without opening fzf:
 $env:HERDR_GOTO_DRYRUN=1; node "$env:APPDATA\herdr\scripts\goto.mjs"
 ```
 
+```bash
+HERDR_GOTO_DRYRUN=1 node ~/.config/herdr/scripts/goto.mjs
+```
+
 ### Why not a plugin
 
 herdr has a real plugin system, but a `[[keys.command]]` popup plus a script needs no manifest,
@@ -82,6 +91,14 @@ cd dotfiles/herdr
 .\install.ps1
 ```
 
-There is no `install.sh` yet. On Linux and macOS the config lives in `~/.config/herdr/`
-instead of `%APPDATA%\herdr\`, so the `command` line in `config.toml` needs the Unix path
-and `default_shell` needs changing.
+**Linux/macOS:**
+
+```bash
+cd dotfiles/herdr
+bash install.sh
+```
+
+`config.toml` is the Windows version. `install.sh` writes a Unix copy to `~/.config/herdr/`
+with two lines changed: `default_shell` becomes zsh (or your `$SHELL` if zsh is missing;
+override with `HERDR_SHELL=/bin/bash bash install.sh`) and the `Ctrl+P` command points to
+`~/.config/herdr/scripts/goto.mjs`. Edit `config.toml` here and rerun the installer.
