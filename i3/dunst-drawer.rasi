@@ -1,0 +1,87 @@
+/* Notification drawer — panel lateral derecho */
+
+* {
+    bg:       #000000;
+    bg-alt:   #111111;
+    bg-item:  #0d0d0d;
+    fg:       #e6e6e6;
+    fg-dim:   #666666;
+    accent:   #5294e2;
+    sel-bg:   #1a2a3a;
+    sel-fg:   #ffffff;
+    border-color:       @accent;
+    background-color:   transparent;
+    text-color:         @fg;
+}
+
+window {
+    background-color: @bg;
+    border:           0px 0px 0px 2px;
+    border-color:     @accent;
+    width:            380px;
+    height:           100%;
+    location:         east;
+    anchor:           east;
+    x-offset:         0px;
+    y-offset:         0px;
+}
+
+mainbox {
+    background-color: @bg;
+    children:         [ message, listview ];
+    spacing:          0px;
+    padding:          0px;
+}
+
+message {
+    background-color: @bg-alt;
+    padding:          14px 18px;
+    border:           0px 0px 1px 0px;
+    border-color:     @accent;
+}
+
+textbox {
+    text-color:  @accent;
+    font:        "JetBrainsMono Nerd Font Bold 11";
+}
+
+listview {
+    background-color: @bg;
+    lines:            20;
+    scrollbar:        false;
+    fixed-height:     true;
+    spacing:          0px;
+    padding:          6px 0px;
+}
+
+element {
+    background-color: @bg-item;
+    padding:          12px 18px;
+    spacing:          0px;
+    border:           0px 0px 1px 0px;
+    border-color:     #1a1a1a;
+    orientation:      vertical;
+}
+
+element normal.normal {
+    background-color: @bg-item;
+    text-color:       @fg;
+}
+
+element alternate.normal {
+    background-color: @bg;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @sel-bg;
+    text-color:       @sel-fg;
+    border:           0px 0px 1px 0px;
+    border-color:     @accent;
+}
+
+element-text {
+    background-color: transparent;
+    vertical-align:   0.5;
+    font:             "JetBrainsMono Nerd Font 10";
+}

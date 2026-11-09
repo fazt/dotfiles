@@ -1,0 +1,69 @@
+/* Tema estilo wlogout para rofi — botones grandes en cuadrícula horizontal */
+* {
+    bg:        #000000;
+    bg-alt:    #0d0d0d;
+    fg:        #e6e6e6;
+    accent:    #5294e2;
+    sel-fg:    #ffffff;
+    background-color: transparent;
+    text-color: @fg;
+    font: "JetBrainsMono Nerd Font 14";
+}
+
+window {
+    background-color: @bg;
+    border: 2px;
+    border-color: @accent;
+    border-radius: 14px;
+    padding: 28px;
+    location: center;
+    width: 720px;
+}
+
+mainbox {
+    spacing: 18px;
+    children: [ message, listview ];
+}
+
+message {
+    padding: 4px;
+    border: 0;
+}
+
+textbox {
+    text-color: @fg;
+    horizontal-align: 0.5;
+    font: "JetBrainsMono Nerd Font 16";
+}
+
+listview {
+    columns: 5;
+    lines: 1;
+    spacing: 16px;
+    cycle: true;
+    layout: horizontal;
+    fixed-height: true;
+}
+
+element {
+    orientation: vertical;
+    padding: 24px 0px;
+    border-radius: 12px;
+    background-color: @bg-alt;
+    border: 2px;
+    border-color: @bg-alt;
+}
+
+element selected {
+    background-color: @accent;
+    border-color: @sel-fg;
+    text-color: @sel-fg;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    font: "JetBrainsMono Nerd Font 30";
+    background-color: transparent;
+    text-color: inherit;
+}
