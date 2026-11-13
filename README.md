@@ -10,6 +10,7 @@ Personal dotfiles for Windows and Linux/macOS.
 | [WezTerm](wezterm/) | Terminal emulator config |
 | [herdr](herdr/) | Terminal workspace manager for AI agents (Ctrl+P session picker) |
 | [Claude](claude/) | Personal Claude Code skills (`fx*`) and status line |
+| [lazysql](lazysql/) | Database TUI theme (`plomo`) and settings; no connections (public repo) |
 | [Neovim](nvim/) | Neovim config (lazy.nvim, telescope, neo-tree, dashboard) |
 | [Packages](packages.txt) | Package list for quick setup on Linux/WSL |
 | [Scripts](scripts/) | Custom utility scripts (Linux/macOS) |

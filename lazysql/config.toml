@@ -1,0 +1,63 @@
+# lazysql: tema "plomo" (el de herdr y lazygit) y ajustes. SIN conexiones a proposito:
+# este repo es publico y las URLs llevan contraseña. Las conexiones de cada maquina
+# se añaden desde lazysql (tecla "a" en el selector) en la copia local, o por proyecto
+# en un .lazysql.toml que no se sube. Ver README.md.
+
+[application]
+DefaultPageSize = 300
+# lo actualiza mise (github:jorgerojas26/lazysql en dotfiles-private/packages/mise.toml)
+DisableUpdateCheck = true
+JSONViewerWordWrap = true
+max_query_rows = 1000
+
+[theme]
+# "default" deja el fondo del terminal (negro en WezTerm); encima, los grises de plomo.
+Preset = "default"
+
+[theme.Colors]
+# Fondos
+PrimitiveBackground = "default"
+ContrastBackground = "#161616"
+MoreContrastBackground = "#1e1e1e"
+# Bordes y titulos
+Border = "#3a3a3a"
+Graphics = "#3a3a3a"
+Title = "#a8a8a8"
+SidebarTitleBorder = "#2e2e2e"
+# Texto
+PrimaryText = "#d0d0d0"
+SecondaryText = "#a8a8a8"
+ContrastSecondaryText = "#000000"
+TertiaryText = "#8a8a8a"
+InverseText = "#5a5a5a"
+# Estados (los tonos apagados de herdr)
+Error = "#b37a7a"
+ReadOnly = "#b08c74"
+TableChange = "#3a3626"
+TableInsert = "#26332a"
+TableDelete = "#3a2626"
+TableMarked = "#2a2a2a"
+# Editor SQL
+EditorSelection = "#2a2a2a"
+EditorStatusBarBackground = "#161616"
+EditorStatusBarText = "#a0a0a0"
+AutocompleteBackground = "#161616"
+AutocompleteText = "#d0d0d0"
+AutocompleteSelected = "#2a2a2a"
+AutocompleteDescription = "#8a8a8a"
+AutocompleteSeparator = "#2e2e2e"
+SQLKeyword = "#7f90a8"
+SQLString = "#7c9480"
+SQLNumber = "#b08c74"
+SQLComment = "#5a5a5a"
+SQLFunction = "#82aaa5"
+SQLOperator = "#8a8a8a"
+SQLType = "#aaa07a"
+SQLBoolean = "#b08c74"
+SQLParameter = "#b37a7a"
+# Visor JSON
+JSONKey = "#7f90a8"
+JSONString = "#7c9480"
+JSONBoolean = "#b08c74"
+JSONNull = "#5a5a5a"
+JSONNumber = "#b08c74"
