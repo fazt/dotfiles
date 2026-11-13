@@ -3,7 +3,7 @@
 #
 # config.toml es la version de Windows. Aqui se genera la de Unix a partir de
 # ella, para no mantener dos copias: cambia el shell, apunta cada script a
-# $DEST/scripts con la ruta absoluta de node y lanza lazygit desde el PATH.
+# $DEST/scripts con la ruta absoluta de node.
 set -e
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -35,9 +35,6 @@ out = out.replace(/^default_shell = .*$/m, `default_shell = ${q(shell)}`);
 // node "%APPDATA%\herdr\scripts\X.mjs" -> /ruta/a/node "$DEST/scripts/X.mjs"
 out = out.replace(/^command = 'node "%APPDATA%\\herdr\\scripts\\([\w.-]+\.mjs)"'$/gm,
   (_, f) => `command = ${q(`${node} "${dest}/scripts/${f}"`)}`);
-// lazygit: en Windows va por cmd con la ruta de winget; aqui, por el PATH.
-out = out.replace(/^command = 'cd \/d "%HERDR_ACTIVE_PANE_CWD%" && .*lazygit\.exe"'$/m,
-  `command = ${q('cd "$HERDR_ACTIVE_PANE_CWD" && lazygit')}`);
 out = out.replace(/^# El comando pasa por cmd\.exe.*$/m, "# Ruta generada por install.sh para esta maquina.");
 // Lo que siga teniendo rutas de Windows quedaria roto en silencio: mejor fallar.
 const left = out.split("\n").filter((l) => /^command = .*(%[A-Z_]+%|cmd |\\)/.test(l));
@@ -52,6 +49,6 @@ JS
 herdr server reload-config >/dev/null 2>&1 || true
 
 echo "herdr config installed in $DEST (shell: $SHELL_BIN)"
-for bin in fzf nvim lazygit yazi; do
+for bin in fzf nvim lazygit lazysql yazi; do
   command -v "$bin" >/dev/null 2>&1 || echo "Falta $bin en el PATH: su atajo no funcionara."
 done

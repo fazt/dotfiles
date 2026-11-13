@@ -15,4 +15,4 @@ herdr server reload-config 2>$null | Out-Null
 
 Write-Host "herdr config installed!" -ForegroundColor Green
 Write-Host "Ctrl+P needs node and fzf on PATH." -ForegroundColor DarkGray
-Write-Host "prefix+Shift+F (explorador) needs yazi; prefix+Shift+L needs lazygit." -ForegroundColor DarkGray
+Write-Host "prefix+Shift+F (explorador) needs yazi; prefix+Shift+L needs lazygit and prefix+Shift+S needs lazysql (both use fzf to pick among several)." -ForegroundColor DarkGray

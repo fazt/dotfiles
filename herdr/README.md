@@ -17,9 +17,56 @@ it swaps the shell, points every script at `~/.config/herdr/scripts` and runs `l
 | `Ctrl+P` | session picker (see below) |
 | `prefix+g` | herdr's native navigator |
 | `prefix+Shift+E` | nvim in the focused pane's directory; in a Claude pane, in the project of the last file it edited (`scripts/nvim-here.mjs`) |
-| `prefix+Shift+L` | lazygit in the focused pane's directory |
+| `prefix+Shift+L` | lazygit in the focused pane's repo; outside a repo, the repos below it (see below) |
+| `prefix+Shift+S` | lazysql on the project's database, found in its `.env` files or SQLite files (see below) |
 | `prefix+Shift+F` | file explorer (yazi) in a pane on the right |
 | `prefix+Shift+G` / `prefix+Alt+G` / `prefix+Alt+D` | new / open / remove worktree |
+
+## lazygit (`prefix+Shift+L`)
+
+`scripts/lazygit-here.mjs` opens lazygit on the repo that contains the focused pane's directory.
+When that directory is not inside a repo but holds several (like `~/projects/fazt`, with
+`faztdev-platform`, `faztdev-api`…), it looks for repos up to two levels down, without descending
+into a repo once found and skipping hidden folders and `node_modules`:
+
+- one repo: opens it directly (`lazygit -p <repo>`);
+- several: pick one with fzf (Esc closes the pane);
+- none: lazygit opens in the directory and shows its usual "not a git repository" prompt.
+
+On Windows it uses the winget path of `lazygit.exe` when it exists, since the herdr server's
+`PATH` may predate the install. Override with `HERDR_LAZYGIT_CMD`. Check what it would do:
+
+```bash
+HERDR_LAZYGIT_DRYRUN=1 HERDR_ACTIVE_PANE_CWD=~/projects/fazt node ~/.config/herdr/scripts/lazygit-here.mjs
+```
+
+## lazysql (`prefix+Shift+S`)
+
+`scripts/lazysql-here.mjs` opens [lazysql](https://github.com/jorgerojas26/lazysql) (a lazygit-style
+TUI for Postgres, MySQL, SQL Server and SQLite) on the database of the focused pane's project. From
+the repo root (or, outside a repo, from every repo below it, as lazygit does) it looks up to three
+levels down for:
+
+- connection URLs in `.env*` files (not `.example`/`.sample`/`.template`), under keys like
+  `DATABASE_URL`, `POSTGRES_URL` or `*_DB_URL`, with a `postgres`, `mysql`, `sqlserver`, `sqlite`
+  or `file` scheme;
+- SQLite files (`.db`, `.sqlite`, `.sqlite3`).
+
+One match opens directly; several are picked with fzf, with a last row for lazysql's saved
+connections; none opens lazysql's own picker. Passwords are masked in the list.
+
+The URL is adjusted before it is passed on: Prisma-only parameters (`schema`, `connection_limit`…)
+are dropped, since Postgres rejects them, and a local Postgres gets `sslmode=disable` unless the URL
+sets it (lazysql's driver asks for SSL and a Docker Postgres has none). Databases whose host is not
+localhost open with `-read-only`; `HERDR_LAZYSQL_RW=1` turns that off. Telemetry is always off.
+
+It is `prefix+Shift+S` (SQL) because `prefix+Shift+D` is herdr's default `close_workspace`.
+Install lazysql with `mise use -g github:jorgerojas26/lazysql`; override the binary with
+`HERDR_LAZYSQL_CMD`. Check what it would do:
+
+```bash
+HERDR_LAZYSQL_DRYRUN=1 HERDR_ACTIVE_PANE_CWD=~/projects node ~/.config/herdr/scripts/lazysql-here.mjs
+```
 
 ## Side file explorer (`prefix+Shift+F`)
 

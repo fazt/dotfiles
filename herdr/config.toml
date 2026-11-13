@@ -82,14 +82,25 @@ command = 'node "%APPDATA%\herdr\scripts\nvim-here.mjs"'
 # sirven para mirar y volver sin dejar nada abierto. Mismo mnemonico que la E
 # de editor: L de lazygit, F de files.
 #
-# Se usa la ruta completa a proposito. El servidor de herdr lleva corriendo
-# desde antes de instalarlas, asi que su PATH no las incluye todavia y un
-# "lazygit" pelado no se encontraria. Tras reiniciar herdr se puede acortar.
+# lazygit va por un script: si la carpeta no es un repo pero contiene varios
+# (como ~/projects/fazt), los busca y deja elegir con fzf. El script tambien
+# usa la ruta de winget, porque el PATH del servidor de herdr puede no
+# incluir lazygit si se instalo despues de arrancarlo.
 [[keys.command]]
 key = "prefix+shift+l"
 type = "pane"
 description = "lazygit en el proyecto"
-command = 'cd /d "%HERDR_ACTIVE_PANE_CWD%" && "%LOCALAPPDATA%\Microsoft\WinGet\Packages\JesseDuffield.lazygit_Microsoft.Winget.Source_8wekyb3d8bbwe\lazygit.exe"'
+command = 'node "%APPDATA%\herdr\scripts\lazygit-here.mjs"'
+
+# lazysql con la base de datos del proyecto, igual que lazygit: busca URLs de
+# conexion en los .env (postgres, mysql, sqlserver, sqlite) y archivos SQLite;
+# con una la abre directo y con varias deja elegir con fzf. Las bases que no
+# son de localhost se abren en solo lectura. S de SQL (prefix+shift+d ya es close_workspace).
+[[keys.command]]
+key = "prefix+shift+s"
+type = "pane"
+description = "lazysql en el proyecto"
+command = 'node "%APPDATA%\herdr\scripts\lazysql-here.mjs"'
 
 # El explorador va como pane LATERAL, no como pane temporal: con type = "pane"
 # herdr ignora direction y ratio, asi que el split lo hace el script. Tambien
